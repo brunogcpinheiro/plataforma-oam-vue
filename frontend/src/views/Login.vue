@@ -13,7 +13,7 @@
               name="password"
               type="password"
             ></v-text-field>
-            <v-btn type="submit" color="primary">Entrar</v-btn>
+            <v-btn type="submit" color="primary" large round>Entrar</v-btn>
         </v-form>
     </div>
 </template>
@@ -50,6 +50,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: #fafafa;
 }
 
 .v-form {
@@ -57,6 +58,12 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: -50px;
+  border-radius: 10px;
+  padding: 20px;
+  background: #fff;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(204, 204, 204, 1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(204, 204, 204, 1);
+  box-shadow: 0px 2px 5px 0px rgba(204, 204, 204, 1);
 }
 
 img {
@@ -70,7 +77,7 @@ label {
 }
 
 .v-text-field {
-  padding: 10px;
+  padding: 0 10px;
   margin: 10px;
   width: 350px;
   border-radius: 10px;

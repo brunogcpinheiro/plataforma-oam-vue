@@ -12,7 +12,7 @@ export default {
     onLogout() {
       this.$store.dispatch("logoutUser");
       localStorage.removeItem('token');
-      this.$router.push('/login');
+      this.$router.replace('/login');
     }
   }
 }
