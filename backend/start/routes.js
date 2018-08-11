@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 |
 */
 
-const Route = use('Route')
+const Route = use("Route");
 
-Route.post('/register', 'SessionController.register');
-Route.post('/login', 'SessionController.login');
+Route.post("/register", "SessionController.register");
+Route.post("/login", "SessionController.login");

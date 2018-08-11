@@ -19,61 +19,66 @@
 </template>
 
 <script>
+import api from '../services/api';
+
 export default {
     data() {
         return {
             email: '',
             password: '',
+            isLoggedIn: false
         };
     },
     methods: {
-        onSubmit (e) {
-            const formData = {
-                email: this.email,
-                password: this.password
-            };
-        console.log(formData);
-        this.$store.dispatch('login', { email: formData.email, password: formData.password });
-        }
+    onSubmit() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
+      }).then(() => {
+        localStorage.setItem('token', this.$store.state.token);
+        api.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token;
+        this.$router.replace('/dashboard');
+      });
     }
+  },
 };
 </script>
 
 <style scoped>
-    .login-form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    
-    .v-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: -50px;
-    }
-    
-    img {
-        width: 300px;
-        height: 200px;
-    }
-    
-    label {
-        align-self: flex-start;
-        margin-left: 4;
-    }
-    
-    .v-text-field {
-        padding: 10px;
-        margin: 10px;
-        width: 350px;
-        border-radius: 10px;
-    }
-    
-    .v-btn:last-child {
-        background: #842e41;
-        color: #fff;
-        cursor: pointer;
-    }
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.v-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -50px;
+}
+
+img {
+  width: 300px;
+  height: 200px;
+}
+
+label {
+  align-self: flex-start;
+  margin-left: 4;
+}
+
+.v-text-field {
+  padding: 10px;
+  margin: 10px;
+  width: 350px;
+  border-radius: 10px;
+}
+
+.v-btn:last-child {
+  background: #842e41;
+  color: #fff;
+  cursor: pointer;
+}
 </style>

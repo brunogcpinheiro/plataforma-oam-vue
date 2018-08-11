@@ -5,7 +5,7 @@
   "author": "Bruno Pinheiro <brunogcpinheiro@hotmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --open --inline --host $IP --port $PORT --public $C9_HOSTNAME --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --open --inline --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
