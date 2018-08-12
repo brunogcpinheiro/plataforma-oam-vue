@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "@/views/Login";
 import Dashboard from "@/views/Dashboard";
+import Profile from "@/views/Profile";
 import Detail from "@/views/Detail";
 
 import store from "../store";
@@ -17,7 +18,13 @@ const router = new Router({
       component: Login
     },
     {
-      path: "/dashboard",
+      path: "/dashboard/profile",
+      name: "Profile",
+      component: Profile,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/dashboard/courses",
       name: "Dashboard",
       component: Dashboard,
       meta: { requiresAuth: true },
@@ -30,7 +37,7 @@ const router = new Router({
       }
     },
     {
-      path: "/dashboard/detail",
+      path: "/dashboard/courses/detail",
       name: "Detail",
       component: Detail,
       meta: { requiresAuth: true }

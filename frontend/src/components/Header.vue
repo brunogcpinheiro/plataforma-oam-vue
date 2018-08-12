@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-toolbar color="primary">
-      <v-toolbar-items class="text-md-center">
-        <v-btn flat class="v-btn--active"><v-icon>local_library</v-icon> Cursos</v-btn>
-        <v-btn flat><v-icon>person</v-icon> Profile</v-btn>
+      <v-toolbar-items>
+        <v-btn flat to="/dashboard/courses"><v-icon>local_library</v-icon> Cursos</v-btn>
+        <v-btn flat to="/dashboard/profile"><v-icon>person</v-icon> Profile</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>

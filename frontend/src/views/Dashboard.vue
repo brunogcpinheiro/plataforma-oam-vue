@@ -2,42 +2,27 @@
   <div>
     <Header />
     <v-container>
-        <v-layout justify-center wrap row>
-        <v-flex xs12 sm5 md6 lg3 xl4>
-          <v-card row>
+      <v-layout justify-center>
+        <v-flex class="content">
+          <v-card class="course">
             <v-card-media
-              src="http://dentarth.com.br/wp-content/uploads/2017/12/ortodontia.jpg"
+              src="https://www.corpuzfamilydentistry.com/blog/wp-content/uploads/2015/03/invisalign-copy.jpg"
               height="180px"
             ></v-card-media>
             <v-card-title primary-title>
               <div>
                 <h2>Ortodontia Iniciante I</h2>
                 <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
-                <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</div>
+                <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
               </div>
             </v-card-title>
-            <v-card-actions>
-              <v-btn color="primary">Acessar curso</v-btn>
+            <v-card-actions class="access">
+              <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
             </v-card-actions>
           </v-card>
-          <v-card>
-            <v-card-media
-              src="https://www.corpuzfamilydentistry.com/blog/wp-content/uploads/2015/03/invisalign-copy.jpg"
-              height="150px"
-            ></v-card-media>
-            <v-card-title primary-title>
-              <div>
-                <h2>Ortodontia Avançada III</h2>
-                <small>Dr. Alexandre Mendonça</small>
-                <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn color="primary">Acessar curso</v-btn>
-            </v-card-actions>
-          </v-card>
+
         </v-flex>
-      </v-layout>
+        </v-layout>
     </v-container>
   </div>
 </template>
@@ -60,5 +45,19 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.course {
+  margin: 20px;
+  width: 300px;
+}
+
+p {
+  margin: 15px 0 0 0;
+}
 </style>
 
