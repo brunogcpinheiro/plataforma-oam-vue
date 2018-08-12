@@ -38,7 +38,7 @@ export default {
       }).then(() => {
         localStorage.setItem('token', this.$store.state.token);
         api.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token;
-        this.$router.replace('/dashboard');
+        this.$router.replace('/dashboard/courses');
       });
     }
   },

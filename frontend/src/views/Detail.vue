@@ -1,7 +1,9 @@
 <template>
   <div>
     <Header />
-    <h1>Detail</h1>
+    <v-container>
+      <h1>Course Detail</h1>
+    </v-container>
   </div>
 </template>
 

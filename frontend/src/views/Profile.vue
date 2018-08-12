@@ -1,7 +1,9 @@
 <template>
   <div>
     <Header />
-    <h1>Profile Page</h1>
+    <v-container>
+      <h1>Profile Page</h1>
+    </v-container>
   </div>
 </template>
 
