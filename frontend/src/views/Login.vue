@@ -13,7 +13,7 @@
               name="password"
               type="password"
             ></v-text-field>
-            <v-btn type="submit" color="primary" large round>Entrar</v-btn>
+            <v-btn type="submit" color="primary" large>Entrar</v-btn>
         </v-form>
     </div>
 </template>
@@ -22,6 +22,7 @@
 import api from '../services/api';
 
 export default {
+    name: "Login",
     data() {
         return {
             email: '',

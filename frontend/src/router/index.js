@@ -20,6 +20,7 @@ const router = new Router({
       path: "/dashboard",
       name: "Dashboard",
       component: Dashboard,
+      meta: { requiresAuth: true },
       beforeRouteEnter(to, from, next) {
         if (store.state.token) {
           next();

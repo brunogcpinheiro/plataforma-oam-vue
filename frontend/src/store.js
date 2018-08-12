@@ -13,6 +13,7 @@ export default new Vuex.Store({
   mutations: {
     authUser(state, userData) {
       state.token = userData.token;
+      router.replace("/dashboard");
     },
     logoutUser(state) {
       state.token = null;
