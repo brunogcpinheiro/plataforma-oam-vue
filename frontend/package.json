@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --open --inline --config build/webpack.dev.conf.js",
+    "c9": "webpack-dev-server --open --inline --port $PORT --host $IP --public $C9_HOSTNAME --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },

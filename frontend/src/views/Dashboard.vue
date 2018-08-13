@@ -2,9 +2,10 @@
   <div>
     <Header />
     <v-container>
-      <v-layout justify-center>
+      <h1>Meus Cursos</h1>
+      <v-layout>
         <v-flex class="content">
-
+          
           <v-card class="course">
             <v-card-media
               src="https://www.corpuzfamilydentistry.com/blog/wp-content/uploads/2015/03/invisalign-copy.jpg"
@@ -12,7 +13,7 @@
             ></v-card-media>
             <v-card-title primary-title>
               <div>
-                <h2>Ortodontia Iniciante I</h2>
+                <h3>Ortodontia Iniciante I</h3>
                 <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
                 <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
               </div>
@@ -29,7 +30,7 @@
             ></v-card-media>
             <v-card-title primary-title>
               <div>
-                <h2>Ortodontia Intermediária II</h2>
+                <h3>Ortodontia Intermediária II</h3>
                 <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
                 <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
               </div>
@@ -46,7 +47,24 @@
             ></v-card-media>
             <v-card-title primary-title>
               <div>
-                <h2>Ortodontia Avançada IV</h2>
+                <h3>Ortodontia Avançada II</h3>
+                <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
+                <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
+              </div>
+            </v-card-title>
+            <v-card-actions class="access">
+              <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
+            </v-card-actions>
+          </v-card>
+          
+          <v-card class="course">
+            <v-card-media
+              src="http://especialize-se.com.br/wp-content/uploads/2018/01/ortodontia.jpg"
+              height="180px"
+            ></v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3>Ortodontia Avançada IV</h3>
                 <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
                 <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
               </div>
@@ -86,9 +104,14 @@ export default {
   justify-content: center;
 }
 
+h1 {
+  text-align: center;
+  margin: -30px 0 20px 0;
+}
+
 .course {
   margin: 20px;
-  width: 350px;
+  width: 300px;
 }
 
 p {
