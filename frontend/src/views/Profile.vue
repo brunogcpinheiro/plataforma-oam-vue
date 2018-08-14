@@ -24,6 +24,7 @@
                 type="password"
               ></v-text-field>
             </div>
+            <v-btn color="primary">Alterar</v-btn>
           </v-form>
         </v-flex>
       </v-layout>
@@ -52,8 +53,12 @@ import Header from '../components/Header.vue';
     display: flex;
   }
   
-  .passwords-field .v-text-field {
+  .passwords-field .v-text-field:first-of-type {
     margin-right: 30px;
+  }
+  
+  .passwords-field .v-text-field:last-of-type {
+    margin-left: 30px;
   }
 
 </style>
