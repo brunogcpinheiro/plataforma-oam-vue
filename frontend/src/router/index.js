@@ -4,6 +4,7 @@ import Login from "@/views/Login";
 import Dashboard from "@/views/Dashboard";
 import Profile from "@/views/Profile";
 import Detail from "@/views/Detail";
+import Admin from "@/views/Admin";
 
 import store from "../store";
 
@@ -41,6 +42,12 @@ const router = new Router({
       path: "/dashboard/courses/detail",
       name: "Detail",
       component: Detail,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/dashboard/admin",
+      name: "Admin",
+      component: Admin,
       meta: { requiresAuth: true }
     },
     {

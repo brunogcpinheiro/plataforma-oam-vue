@@ -7,6 +7,7 @@
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
+        <v-btn flat v-if="this.$store.state.user.user.admin" to="/dashboard/admin"><v-icon>supervised_user_circle</v-icon> Admin</v-btn>
         <v-btn flat @click="onLogout"><v-icon>exit_to_app</v-icon> Sair</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'Header',
   methods: {
@@ -24,7 +27,10 @@ export default {
       localStorage.removeItem('token');
       this.$router.replace('/login');
     }
-  }
+  },
+  created() {
+    return this.$store.dispatch('fetchUser');
+  },
 }
 </script>
 
