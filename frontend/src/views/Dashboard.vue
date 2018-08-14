@@ -39,23 +39,6 @@
               <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
             </v-card-actions>
           </v-card>
-
-          <v-card class="course">
-            <v-card-media
-              src="https://www.tg24.info/rubriche/wp-content/uploads/2016/04/apparecchio-denti-680x365_c.jpg"
-              height="180px"
-            ></v-card-media>
-            <v-card-title primary-title>
-              <div>
-                <h3>Ortodontia Avançada II</h3>
-                <small><strong>Autor:</strong> Dr. Alexandre Mendonça</small>
-                <p>Lorem idivsum dolor, sit amet consectetur adipisicing elit. Dolorum alias, fuga ipsa possimus illum quidem consectetur corrupti quasi dolor assumenda similique quibusdam quae odit aliquid nisi accusamus est saepe sed?</p>
-              </div>
-            </v-card-title>
-            <v-card-actions class="access">
-              <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
-            </v-card-actions>
-          </v-card>
           
           <v-card class="course">
             <v-card-media
@@ -82,19 +65,28 @@
 
 <script>
 import Header from '../components/Header.vue';
+
 export default {
   name: "Dashboard",
   components: {
     Header
   },
+  computed: {
+    user() {
+      this.$store.getters.user;
+    }
+  },
+  created() {
+    return this.$store.dispatch('fetchUser');
+  },
   methods: {
     onLogout() {
       this.$store.dispatch("logoutUser");
-      localStorage.removeItem('token');
+      /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
     }
   }
-}
+};
 </script>
 
 <style scoped>

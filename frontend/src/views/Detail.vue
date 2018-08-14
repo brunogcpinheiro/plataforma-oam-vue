@@ -75,6 +75,10 @@ import Header from '../components/Header.vue';
     margin-top: -30px;
   }
   
+  h3 {
+    text-transform: uppercase;
+  }
+  
   .main {
     display: flex;
   }

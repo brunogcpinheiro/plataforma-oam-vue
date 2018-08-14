@@ -7,13 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: null
+    token: null,
+    user: null
   },
-  getters: {},
   mutations: {
     authUser(state, userData) {
       state.token = userData.token;
-      router.replace("/dashboard/courses");
+      //router.replace("/dashboard/courses");
+    },
+    currentUser (state, currentUserData) {
+      state.user = currentUserData;
     },
     logoutUser(state) {
       state.token = null;
@@ -28,14 +31,27 @@ export default new Vuex.Store({
         })
         .then(res => {
           commit("authUser", {
-            token: res.data.token
+            token: res.data.token,
           });
         })
         .catch(error => console.log(error));
     },
+    fetchUser({ commit }, userData) {
+      api
+        .get('/current').then(res => {
+          commit('currentUser', {
+            user: res.data.user
+          });
+        });
+    },
     logoutUser({ commit }) {
       commit("logoutUser");
       router.replace("/login");
+    }
+  },
+  getters: {
+    user (state) {
+      return state.user;
     }
   }
 });

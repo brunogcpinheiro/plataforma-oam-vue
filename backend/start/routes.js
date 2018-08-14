@@ -17,3 +17,4 @@ const Route = use("Route");
 
 Route.post("/register", "SessionController.register");
 Route.post("/login", "SessionController.login");
+Route.get("/current", "SessionController.currentUser");

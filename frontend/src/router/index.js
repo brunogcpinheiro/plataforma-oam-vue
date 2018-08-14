@@ -15,7 +15,8 @@ const router = new Router({
     {
       path: "/login",
       name: "Login",
-      component: Login
+      component: Login,
+      
     },
     {
       path: "/dashboard/profile",
@@ -41,6 +42,10 @@ const router = new Router({
       name: "Detail",
       component: Detail,
       meta: { requiresAuth: true }
+    },
+    {
+      path: "*",
+      redirect: '/login'
     }
   ]
 });
