@@ -48,7 +48,14 @@ const router = new Router({
       path: "/dashboard/admin",
       name: "Admin",
       component: Admin,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
+      beforeRouteEnter(to, from, next) {
+        if (store.state.token && store.getters.user.user.admin) {
+          next();
+        } else {
+          next("/dashboard/courses");
+        }
+      }
     },
     {
       path: "*",

@@ -76,7 +76,7 @@ export default {
       this.$store.getters.user;
     }
   },
-  created() {
+  beforeCreate() {
     return this.$store.dispatch('fetchUser');
   },
   methods: {

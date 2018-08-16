@@ -11,7 +11,6 @@
             ></v-text-field>
             <v-text-field
               label="E-mail"
-              value="brunogcpinheiro@hotmail.com"
               disabled
             ></v-text-field>
             <div class="passwords-field">

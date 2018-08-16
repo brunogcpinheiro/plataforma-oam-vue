@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-toolbar color="primary">
+    <v-toolbar color="secondary">
       <v-toolbar-items>
         <v-btn flat to="/dashboard/courses"><v-icon>local_library</v-icon> Cursos</v-btn>
         <v-btn flat to="/dashboard/profile"><v-icon>person</v-icon> Profile</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat v-if="this.$store.getters.user.user.admin" to="/dashboard/admin"><v-icon>supervised_user_circle</v-icon> Admin</v-btn>
+        <v-btn flat v-if="this.$store.state.user.user.admin" to="/dashboard/admin"><v-icon>supervised_user_circle</v-icon> Admin</v-btn>
         <v-btn flat @click="onLogout"><v-icon>exit_to_app</v-icon> Sair</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -17,19 +17,20 @@
 </template>
 
 <script>
+
 export default {
   name: 'Header',
   methods: {
     onLogout() {
       this.$store.dispatch("logoutUser");
-      localStorage.removeItem('token');
+      /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
     }
   },
   created() {
     return this.$store.dispatch('fetchUser');
   },
-};
+}
 </script>
 
 <style scoped>
