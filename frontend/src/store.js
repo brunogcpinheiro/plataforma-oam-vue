@@ -8,12 +8,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    user: null
+    user: null,
+    username: null,
+    email: null,
+    password: null,
+    admin: null,
   },
   mutations: {
     authUser(state, userData) {
       state.token = userData.token;
       //router.replace("/dashboard/courses");
+    },
+    registerUser(state, registerUser) {
+      state.username = registerUser.username;
+      state.email = registerUser.email;
+      state.password = registerUser.password;
+      state.admin = registerUser.admin;
     },
     currentUser (state, currentUserData) {
       state.user = currentUserData;
@@ -23,6 +33,25 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    register({ commit }, registerData) {
+      api
+        .post('/register', {
+          username: registerData.username,
+          email: registerData.email,
+          password: registerData.password,
+          admin: registerData.admin,
+        })
+        .then(res => {
+          console.log(res);
+          commit("registerUser", {
+            username: res.data.username,
+            email: res.data.email,
+            password: res.data.password,
+            admin: res.data.admin,
+          });
+        })
+        .catch(err => console.log(err));
+    },
     login({ commit }, authData) {
       api
         .post("/login", {

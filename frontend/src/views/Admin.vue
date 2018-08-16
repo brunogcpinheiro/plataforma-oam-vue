@@ -6,6 +6,7 @@
             <div class="users-table">
               <div class="table-actions">
                 <h2>Tabela de Usuários</h2>
+                <v-form>
                 <v-dialog v-model="userDialog" max-width="500px">
                     <v-btn slot="activator" color="secondary"><v-icon>add</v-icon> Adicionar Usuário</v-btn>
                     <v-card>
@@ -19,6 +20,7 @@
                               <v-text-field 
                                   label="Usuário *"
                                   hint="Nome completo"
+                                  v-model="username"
                                   required
                               ></v-text-field>
                             </v-flex>
@@ -26,19 +28,21 @@
                               <v-text-field 
                                   label="Email *" 
                                   hint="E-mail de compra"
+                                  v-model="email"
                                   required
                               ></v-text-field>
                             </v-flex>
                             <v-flex xs12>
                               <v-text-field 
                                   label="Senha *" 
-                                  type="password" 
+                                  type="password"
+                                  v-model="password"
                                   required
                               ></v-text-field>
                             </v-flex>
                             <v-flex xs12>
                               <v-checkbox
-                                v-model="adminCB"
+                                v-model="admin"
                                 label="Administrador"
                                 color="secondary"
                                 value="admin"
@@ -59,11 +63,12 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="secondary" @click.native="userDialog = false">Salvar</v-btn>
-                        <v-btn color="error" @click.native="userDialog = false">Fechar</v-btn>
+                        <v-btn color="secondary" @click.native="userDialog = false" type="submit">Salvar</v-btn>
+                        <v-btn color="error" @click.native="userDialog = false" type="submit">Fechar</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
+                  </v-form>
               </div>
                 <v-layout>
                     <v-flex>
@@ -175,7 +180,7 @@ export default {
           { text: 'E-mail', sortable: false, value: 'email' },
           { text: 'Admin', sortable: false, value: 'admin' },
           { text: 'Cursos (id)', sortable: false, value: 'courses' },
-          { text: 'Ações', sortable: false, value: 'ações', align: 'center' },
+          { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
         ],
         users: [
           {
@@ -185,32 +190,11 @@ export default {
             admin: true,
             cursos: '1, 2',
           },
-          {
-            id: "2",
-            name: 'Bruno',
-            email: 'bruno@admin.com.br',
-            admin: true,
-            cursos: '1, 2',
-          },
-          {
-            id: "3",
-            name: 'Renata',
-            email: 'renata@admin.com.br',
-            admin: true,
-            cursos: '1, 2',
-          },
-          {
-            id: "4",
-            name: 'Luiza',
-            email: 'luiza@admin.com.br',
-            admin: true,
-            cursos: '1, 2',
-          },
         ],
         coursesHeaders: [
           { text: 'id', value: 'id' },
           { text: 'Nome', value: 'name' },
-          { text: 'Ações', sortable: false, value: 'ações', align: 'center' },
+          { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
         ],
         courses: [
           {
@@ -220,11 +204,28 @@ export default {
         ],
         userDialog: false,
         courseDialog: false,
-        adminCB: false,
         userSearch: '',
         courseSearch: '',
+        admin: false,
+        username: '',
+        email: '',
+        password: '',
+        valid: true
       };
-    }
+    },
+    methods: {
+      onSubmit() {
+        const registerData = {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          admin: this.admin,
+        };
+      console.log(registerData);
+        
+      this.$store.dispatch('register', registerData);
+      }
+    },
 };
 </script>
 
@@ -260,5 +261,6 @@ h1 {
 
 h2 {
   margin-left: 10px;
+  color: #182C61;
 }
 </style>
