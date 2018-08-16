@@ -22,13 +22,10 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch("logoutUser");
-      localStorage.removeItem('token');
+      /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
     }
-  },
-  created() {
-    return this.$store.dispatch('fetchUser');
-  },
+  }
 };
 </script>
 
