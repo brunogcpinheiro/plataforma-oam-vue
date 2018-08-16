@@ -59,17 +59,27 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" @click.native="userDialog = false">Fechar</v-btn>
                         <v-btn color="secondary" @click.native="userDialog = false">Salvar</v-btn>
+                        <v-btn color="error" @click.native="userDialog = false">Fechar</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
               </div>
                 <v-layout>
                     <v-flex>
+                        <v-card-title>
+                          <v-text-field
+                            v-model="userSearch"
+                            append-icon="search"
+                            label="Buscar"
+                            single-line
+                            hide-details
+                          ></v-text-field>
+                        </v-card-title>
                         <v-data-table
                             :headers="usersHeaders"
                             :items="users"
+                            :search="userSearch"
                         >
                         <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
@@ -77,6 +87,10 @@
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
                           <td>{{ props.item.cursos }}</td>
+                          <td>
+                            <v-btn color="secondary">Editar</v-btn>
+                            <v-btn color="error">Excluir</v-btn>
+                          </td>
                         </template>
                       </v-data-table>
                     </v-flex>
@@ -107,22 +121,35 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" @click.native="courseDialog = false">Fechar</v-btn>
                         <v-btn color="secondary" @click.native="courseDialog = false">Salvar</v-btn>
+                        <v-btn color="error" @click.native="courseDialog = false">Fechar</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
               </div>
               <v-layout>
                     <v-flex>
+                      <v-card-title>
+                          <v-text-field
+                            v-model="courseSearch"
+                            append-icon="search"
+                            label="Buscar"
+                            single-line
+                            hide-details
+                          ></v-text-field>
+                        </v-card-title>
                         <v-data-table
                             :headers="coursesHeaders"
                             :items="courses"
-                            class="elevation-1"
+                            :search="courseSearch"
                         >
                         <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
                           <td>{{ props.item.name }}</td>
+                          <td>
+                            <v-btn color="secondary">Editar</v-btn>
+                            <v-btn color="error">Excluir</v-btn>
+                          </td>
                         </template>
                       </v-data-table>
                     </v-flex>
@@ -148,6 +175,7 @@ export default {
           { text: 'E-mail', sortable: false, value: 'email' },
           { text: 'Admin', sortable: false, value: 'admin' },
           { text: 'Cursos (id)', sortable: false, value: 'courses' },
+          { text: 'Ações', sortable: false, value: 'ações', align: 'center' },
         ],
         users: [
           {
@@ -157,10 +185,32 @@ export default {
             admin: true,
             cursos: '1, 2',
           },
+          {
+            id: "2",
+            name: 'Bruno',
+            email: 'bruno@admin.com.br',
+            admin: true,
+            cursos: '1, 2',
+          },
+          {
+            id: "3",
+            name: 'Renata',
+            email: 'renata@admin.com.br',
+            admin: true,
+            cursos: '1, 2',
+          },
+          {
+            id: "4",
+            name: 'Luiza',
+            email: 'luiza@admin.com.br',
+            admin: true,
+            cursos: '1, 2',
+          },
         ],
         coursesHeaders: [
           { text: 'id', value: 'id' },
           { text: 'Nome', value: 'name' },
+          { text: 'Ações', sortable: false, value: 'ações', align: 'center' },
         ],
         courses: [
           {
@@ -171,6 +221,8 @@ export default {
         userDialog: false,
         courseDialog: false,
         adminCB: false,
+        userSearch: '',
+        courseSearch: '',
       };
     }
 };

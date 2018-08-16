@@ -28,23 +28,20 @@
                 <v-card-title>
                   <ol>
                     <li>
-                      <v-btn class="video-desc">
+                      <v-btn flat class="video-desc">
                         <h5>Introdução</h5>
-                        <small>7:44</small>
                       </v-btn>
                     </li>
                     
                     <li>
-                      <v-btn class="video-desc">
+                      <v-btn flat class="video-desc">
                         <h5>Introdução</h5>
-                        <small>7:44</small>
                       </v-btn>
                     </li>
                     
                     <li>
-                      <v-btn class="video-desc">
+                      <v-btn flat class="video-desc">
                         <h5>Introdução</h5>
-                        <small>7:44</small>
                       </v-btn>
                     </li>
                   </ol>
@@ -111,9 +108,6 @@ import Header from '../components/Header.vue';
   .video-desc {
     display: flex;
     padding: 10px;
-  }
-  
-  small {
-    margin-left: 10px;
+    color: #fff;
   }
 </style>
