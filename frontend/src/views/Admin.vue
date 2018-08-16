@@ -192,9 +192,12 @@ h1 {
 }
 
 .users-table, .courses-table {
-  margin-top: 15px;
+  margin: 25px 0 35px 0;
   border: 1px solid #e5e5e5;
   background: #d1d8e0;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(196,196,196,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(196,196,196,1);
+  box-shadow: 0px 2px 5px 0px rgba(196,196,196,1);
 }
 
 .table-actions, .courses-actions {
