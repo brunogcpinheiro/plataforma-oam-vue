@@ -36,7 +36,7 @@ export default {
         email: this.email,
         password: this.password
       }).then(() => {
-        localStorage.setItem('token', this.$store.state.token);
+        /*global localStorage*/ localStorage.setItem('token', this.$store.state.token);
         api.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token;
         this.$router.replace('/dashboard/courses');
       });

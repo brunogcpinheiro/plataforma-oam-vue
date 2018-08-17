@@ -1,4 +1,4 @@
-<template>
+<template v-if="">
   <div>
     <Header />
     <v-container>
@@ -65,6 +65,7 @@
 
 <script>
 import Header from '../components/Header.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: "Dashboard",
@@ -72,12 +73,9 @@ export default {
     Header
   },
   computed: {
-    user() {
-      this.$store.getters.user;
-    }
-  },
-  beforeCreate() {
-    return this.$store.dispatch('fetchUser');
+    ...mapGetters([
+      'user'
+    ])
   },
   methods: {
     onLogout() {
@@ -85,9 +83,6 @@ export default {
       /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
     }
-  },
-  created() {
-    return this.$store.dispatch('fetchUser');
   },
 };
 </script>

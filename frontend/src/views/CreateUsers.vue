@@ -54,7 +54,7 @@
 import AdminHeader from '../components/AdminHeader.vue';
 
   export default {
-    name: 'Profile',
+    name: 'CreateUsers',
     components: {
       AdminHeader
     },
@@ -81,6 +81,7 @@ import AdminHeader from '../components/AdminHeader.vue';
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
+            padding: '2em',
             timer: 2000
           });
           
@@ -90,12 +91,17 @@ import AdminHeader from '../components/AdminHeader.vue';
           });
           this.$router.replace('/dashboard/courses');
         } else {
-          this.$swal({
-            position: 'center',
+          const toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            padding: '2em',
+            timer: 2000
+          });
+          
+          toast({
             type: 'error',
-            title: 'Preencha todos os campos.',
-            showConfirmButton: true,
-            timer: 2500
+            title: 'Preencha todos os campos!'
           });
         }
       },

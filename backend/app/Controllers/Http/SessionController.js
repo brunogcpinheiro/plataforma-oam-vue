@@ -28,7 +28,7 @@ class SessionController {
   async currentUser({ request, auth }) {
     const user = await auth.getUser();
     
-    return { user };
+    return user;
   }
 }
 

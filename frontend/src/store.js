@@ -33,8 +33,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async register({ commit }, registerData) {
-      await api
+    register({ commit }, registerData) {
+      api
         .post('/dashboard/admin/users/create', {
           username: registerData.username,
           email: registerData.email,
@@ -61,21 +61,20 @@ export default new Vuex.Store({
           commit("authUser", {
             token: res.data.token,
           });
-        })
-        .catch(error => console.log(error));
+        }).catch(error => console.log(error));
     },
-    async fetchUsersTable({ commit }) {
-      await api
+    fetchUsersTable({ commit }) {
+      api
         .get('/dashboard/admin/users')
         .then(res => {
           commit('fetchUsersMutation', res.data);
         });
     },
-    async fetchUser({ commit }, userData) {
-      await api
+    fetchUser({ commit }, userData) {
+      api
         .get('/current').then(res => {
           commit('currentUser', {
-            user: res.data.user
+            user: res.data
           });
         });
     },
