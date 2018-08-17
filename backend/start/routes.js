@@ -15,6 +15,14 @@
 
 const Route = use("Route");
 
-Route.post("/register", "SessionController.register");
+/**
+ * User Routes
+ */
 Route.post("/login", "SessionController.login");
 Route.get("/current", "SessionController.currentUser");
+Route.post("/dashboard/admin/users/register", "SessionController.register");
+
+/**
+ * Course Routes
+ */
+Route.post("/dashboard/admin/courses/create", "CourseController.store");
