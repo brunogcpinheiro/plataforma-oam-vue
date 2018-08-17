@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:3333"
+  baseURL: "http://plataforma-oam-vue-brunogcpinheiro.c9users.io:8080"
 });
 
 export default api;

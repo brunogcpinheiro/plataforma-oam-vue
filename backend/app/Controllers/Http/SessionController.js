@@ -3,6 +3,12 @@
 const User = use("App/Models/User");
 
 class SessionController {
+  async index() {
+    const users = await User.all();
+    
+    return users;
+  }
+  
   async register({ request }) {
     const data = request.only(["username", "email", "password", "admin"]);
 

@@ -14,8 +14,6 @@
                       </v-card-title>
                       <v-card-text>
                         <v-container grid-list-md>
-                          <v-layout wrap>
-                            <v-form>
                             <v-flex xs12>
                               <v-text-field
                                   label="Usuário *"
@@ -56,7 +54,6 @@
                                 chips
                               ></v-autocomplete>
                             </v-flex>
-                            </v-form>
                           </v-layout>
                         </v-container>
                         <small>* Campos obrigatórios</small>
@@ -85,9 +82,9 @@
                             :items="users"
                             :search="userSearch"
                         >
-                        <template slot="items" slot-scope="props">
+                        <template slot="items" slot-scope="props"  v-for="user in users">
                           <td>{{ props.item.id }}</td>
-                          <td>{{ props.item.name }}</td>
+                          <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
                           <td>{{ props.item.cursos }}</td>
@@ -175,7 +172,7 @@ export default {
       return {
         usersHeaders: [
           { text: 'id', value: 'id' },
-          { text: 'Usuário', value: 'name' },
+          { text: 'Usuário', value: 'username' },
           { text: 'E-mail', sortable: false, value: 'email' },
           { text: 'Admin', sortable: false, value: 'admin' },
           { text: 'Cursos (id)', sortable: false, value: 'courses' },
@@ -183,25 +180,11 @@ export default {
         ],
         users: [
           {
-            id: "1",
-            name: 'Admin',
-            email: 'admin@admin.com.br',
-            admin: true,
-            cursos: '1, 2',
-          },
-          {
-            id: "2",
-            name: 'Bruno',
-            email: 'bruno@admin.com.br',
-            admin: true,
-            cursos: '4',
-          },
-          {
-            id: "3",
-            name: 'Renata',
-            email: 'renata@admin.com.br',
-            admin: false,
-            cursos: '1, 3',
+            id: this.$store.state.usersTable[0].id,
+            username: this.$store.state.usersTable[0].username,
+            email: this.$store.state.usersTable[0].email,
+            admin: this.$store.state.usersTable[0].admin,
+            cursos: this.$store.state.usersTable[0].cursos,
           },
         ],
         coursesHeaders: [
@@ -226,6 +209,9 @@ export default {
         valid: true
       };
     },
+    created() {
+      return this.$store.dispatch('fetchUsersTable');
+    },
     methods: {
       onSubmit() {
         const registerData = {
@@ -237,7 +223,7 @@ export default {
       console.log(registerData);
 
       this.$store.dispatch('register', registerData);
-      }
+      },
     },
 };
 </script>

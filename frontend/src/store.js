@@ -9,10 +9,7 @@ export default new Vuex.Store({
   state: {
     token: null,
     user: null,
-    username: null,
-    email: null,
-    password: null,
-    admin: null,
+    usersTable: null
   },
   mutations: {
     authUser(state, userData) {
@@ -25,6 +22,9 @@ export default new Vuex.Store({
       state.password = registerUser.password;
       state.admin = registerUser.admin;
     },
+    fetchUsersMutation (state, usersData) {
+      state.usersTable = usersData;
+    },
     currentUser (state, currentUserData) {
       state.user = currentUserData;
     },
@@ -35,7 +35,7 @@ export default new Vuex.Store({
   actions: {
     register({ commit }, registerData) {
       api
-        .post('/register', {
+        .post('/dashboard/admin/users/register', {
           username: registerData.username,
           email: registerData.email,
           password: registerData.password,
@@ -64,6 +64,13 @@ export default new Vuex.Store({
           });
         })
         .catch(error => console.log(error));
+    },
+    fetchUsersTable({ commit }) {
+      api
+        .get('/dashboard/admin/users')
+        .then(res => {
+          commit('fetchUsersMutation', res.data);
+        });
     },
     fetchUser({ commit }, userData) {
       api
