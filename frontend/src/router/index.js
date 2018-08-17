@@ -5,6 +5,7 @@ import Dashboard from "@/views/Dashboard";
 import Profile from "@/views/Profile";
 import Detail from "@/views/Detail";
 import Admin from "@/views/Admin";
+import CreateUsers from "@/views/CreateUsers";
 
 import store from "../store";
 
@@ -48,6 +49,19 @@ const router = new Router({
       path: "/dashboard/admin",
       name: "Admin",
       component: Admin,
+      meta: { requiresAuth: true },
+      beforeRouteEnter(to, from, next) {
+        if (store.state.token && store.getters.user.user.admin) {
+          next();
+        } else {
+          next("/dashboard/courses");
+        }
+      }
+    },
+    {
+      path: "/dashboard/admin/users/create",
+      name: "CreateUsers",
+      component: CreateUsers,
       meta: { requiresAuth: true },
       beforeRouteEnter(to, from, next) {
         if (store.state.token && store.getters.user.user.admin) {

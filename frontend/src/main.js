@@ -5,6 +5,7 @@ import App from "./App";
 import Vuetify from "vuetify";
 import router from "./router";
 import store from "./store";
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import "vuetify/dist/vuetify.min.css";
 
@@ -16,6 +17,8 @@ Vue.use(Vuetify, {
     error: "#b71c1c"
   }
 });
+
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 

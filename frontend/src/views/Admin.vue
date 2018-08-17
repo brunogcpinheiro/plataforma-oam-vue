@@ -6,65 +6,7 @@
             <div class="users-table">
               <div class="table-actions">
                 <h2>Tabela de Usuários</h2>
-                <v-dialog v-model="userDialog" max-width="500px">
-                    <v-btn slot="activator" color="secondary"><v-icon>add</v-icon> Adicionar Usuário</v-btn>
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline">Adicionar Usuário</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container grid-list-md>
-                            <v-flex xs12>
-                              <v-text-field
-                                  label="Usuário *"
-                                  hint="Nome completo"
-                                  v-model="username"
-                                  required
-                              ></v-text-field>
-                            </v-flex>
-                            <v-flex xs12>
-                              <v-text-field
-                                  label="Email *"
-                                  hint="E-mail de compra"
-                                  v-model="email"
-                                  required
-                              ></v-text-field>
-                            </v-flex>
-                            <v-flex xs12>
-                              <v-text-field
-                                  label="Senha *"
-                                  type="password"
-                                  v-model="password"
-                                  required
-                              ></v-text-field>
-                            </v-flex>
-                            <v-flex xs12>
-                              <v-checkbox
-                                v-model="admin"
-                                label="Administrador"
-                                color="secondary"
-                                hide-details
-                              ></v-checkbox>
-                            </v-flex>
-                            <v-flex xs12>
-                              <v-autocomplete
-                                :items="['Ortodontia Iniciante I', 'Ortodontia Iniciante II', 'Ortodontia Intermediária I', 'Ortodontia Avançada I', 'Ortodontia Avançada IV']"
-                                label="Cursos *"
-                                multiple
-                                chips
-                              ></v-autocomplete>
-                            </v-flex>
-                          </v-layout>
-                        </v-container>
-                        <small>* Campos obrigatórios</small>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="secondary" @click.native="userDialog = false" type="submit" @click="onSubmit">Salvar</v-btn>
-                        <v-btn color="error" @click.native="userDialog = false" type="submit">Fechar</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                <v-btn color="secondary" to="/dashboard/admin/users/create"><v-icon>add</v-icon> Adicionar Usuário</v-btn>
               </div>
                 <v-layout>
                     <v-flex>
@@ -82,15 +24,15 @@
                             :items="users"
                             :search="userSearch"
                         >
-                        <template slot="items" slot-scope="props"  v-for="user in users">
+                        <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
                           <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
                           <td>{{ props.item.cursos }}</td>
                           <td>
-                            <v-btn color="secondary">Editar</v-btn>
-                            <v-btn color="error">Excluir</v-btn>
+                            <v-btn color="secondary" small>Editar</v-btn>
+                            <v-btn color="error" small>Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -122,7 +64,7 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="secondary" @click.native="courseDialog = false" @click="onSubmit">Salvar</v-btn>
+                        <v-btn color="secondary" @click.native="courseDialog = false">Salvar</v-btn>
                         <v-btn color="error" @click.native="courseDialog = false">Fechar</v-btn>
                       </v-card-actions>
                     </v-card>
@@ -148,8 +90,8 @@
                           <td>{{ props.item.id }}</td>
                           <td>{{ props.item.name }}</td>
                           <td>
-                            <v-btn color="secondary">Editar</v-btn>
-                            <v-btn color="error">Excluir</v-btn>
+                            <v-btn color="secondary" small>Editar</v-btn>
+                            <v-btn color="error" small>Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -178,15 +120,7 @@ export default {
           { text: 'Cursos (id)', sortable: false, value: 'courses' },
           { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
         ],
-        users: [
-          {
-            id: this.$store.state.usersTable[0].id,
-            username: this.$store.state.usersTable[0].username,
-            email: this.$store.state.usersTable[0].email,
-            admin: this.$store.state.usersTable[0].admin,
-            cursos: this.$store.state.usersTable[0].cursos,
-          },
-        ],
+        users: this.$store.state.usersTable,
         coursesHeaders: [
           { text: 'id', value: 'id' },
           { text: 'Nome', value: 'name' },
@@ -211,19 +145,6 @@ export default {
     },
     created() {
       return this.$store.dispatch('fetchUsersTable');
-    },
-    methods: {
-      onSubmit() {
-        const registerData = {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-          admin: this.admin,
-        };
-      console.log(registerData);
-
-      this.$store.dispatch('register', registerData);
-      },
     },
 };
 </script>

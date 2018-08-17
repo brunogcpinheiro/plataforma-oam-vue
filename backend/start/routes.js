@@ -20,7 +20,7 @@ const Route = use("Route");
  */
 Route.post("/login", "SessionController.login");
 Route.get("/current", "SessionController.currentUser");
-Route.post("/dashboard/admin/users/register", "SessionController.register");
+Route.post("/dashboard/admin/users/create", "SessionController.register");
 Route.get("/dashboard/admin/users", "SessionController.index");
 
 /**

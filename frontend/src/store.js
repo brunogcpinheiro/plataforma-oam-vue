@@ -33,16 +33,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    register({ commit }, registerData) {
-      api
-        .post('/dashboard/admin/users/register', {
+    async register({ commit }, registerData) {
+      await api
+        .post('/dashboard/admin/users/create', {
           username: registerData.username,
           email: registerData.email,
           password: registerData.password,
           admin: registerData.admin,
         })
         .then(res => {
-          console.log(res);
           commit("registerUser", {
             username: res.data.username,
             email: res.data.email,
@@ -52,8 +51,8 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err));
     },
-    login({ commit }, authData) {
-      api
+    async login({ commit }, authData) {
+      await api
         .post("/login", {
           email: authData.email,
           password: authData.password
@@ -65,15 +64,15 @@ export default new Vuex.Store({
         })
         .catch(error => console.log(error));
     },
-    fetchUsersTable({ commit }) {
-      api
+    async fetchUsersTable({ commit }) {
+      await api
         .get('/dashboard/admin/users')
         .then(res => {
           commit('fetchUsersMutation', res.data);
         });
     },
-    fetchUser({ commit }, userData) {
-      api
+    async fetchUser({ commit }, userData) {
+      await api
         .get('/current').then(res => {
           commit('currentUser', {
             user: res.data.user
@@ -88,6 +87,9 @@ export default new Vuex.Store({
   getters: {
     user: state => {
       return state.user;
+    },
+    usersTable: state => {
+      return state.usersTable;
     }
   }
 });

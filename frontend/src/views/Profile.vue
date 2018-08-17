@@ -38,7 +38,7 @@ import Header from '../components/Header.vue';
     name: 'Profile',
     components: {
       Header
-    }
+    },
   };
 </script>
 
