@@ -22,10 +22,10 @@ export default new Vuex.Store({
       state.password = registerUser.password;
       state.admin = registerUser.admin;
     },
-    fetchUsersMutation (state, usersData) {
+    fetchUsersMutation(state, usersData) {
       state.usersTable = usersData;
     },
-    currentUser (state, currentUserData) {
+    currentUser(state, currentUserData) {
       state.user = currentUserData;
     },
     logoutUser(state) {
@@ -33,50 +33,54 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    register({ commit }, registerData) {
-      api
-        .post('/dashboard/admin/users/create', {
+    async register({ commit }, registerData) {
+      try {
+        const { data } = await api.post("/dashboard/admin/users/create", {
           username: registerData.username,
           email: registerData.email,
           password: registerData.password,
-          admin: registerData.admin,
-        })
-        .then(res => {
-          commit("registerUser", {
-            username: res.data.username,
-            email: res.data.email,
-            password: res.data.password,
-            admin: res.data.admin,
-          });
-        })
-        .catch(err => console.log(err));
+          admin: registerData.admin
+        });
+        commit("registerUser", {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          admin: data.admin
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     async login({ commit }, authData) {
-      await api
-        .post("/login", {
+      try {
+        const { data } = await api.post("/login", {
           email: authData.email,
           password: authData.password
-        })
-        .then(res => {
-          commit("authUser", {
-            token: res.data.token,
-          });
-        }).catch(error => console.log(error));
-    },
-    fetchUsersTable({ commit }) {
-      api
-        .get('/dashboard/admin/users')
-        .then(res => {
-          commit('fetchUsersMutation', res.data);
         });
-    },
-    fetchUser({ commit }, userData) {
-      api
-        .get('/current').then(res => {
-          commit('currentUser', {
-            user: res.data
-          });
+        commit("authUser", {
+          token: data.token
         });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchUsersTable({ commit }) {
+      try {
+        const { data } = await api.get("/dashboard/admin/users");
+        commit("fetchUsersMutation", data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchUser({ commit }, userData) {
+      try {
+        const { data } = await api.get("/current");
+        commit("currentUser", {
+          user: data
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     logoutUser({ commit }) {
       commit("logoutUser");

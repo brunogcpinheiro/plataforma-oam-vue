@@ -1,5 +1,5 @@
-<template v-if="user">
-  <div>
+<template>
+  <div v-if="user.user">
     <v-toolbar color="primary">
       <v-toolbar-items>
         <v-btn flat to="/dashboard/courses"><v-icon>local_library</v-icon> Cursos</v-btn>
