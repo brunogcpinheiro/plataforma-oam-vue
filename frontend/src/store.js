@@ -51,13 +51,13 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async login({ commit }, authData) {
+    async login({ commit, dispatch }, authData) {
       try {
         const { data } = await api.post("/login", {
           email: authData.email,
           password: authData.password
         });
-        commit("authUser", {
+        await commit("authUser", {
           token: data.token
         });
       } catch (error) {
@@ -72,7 +72,7 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async fetchUser({ commit }, userData) {
+    async fetchUser({ commit }) {
       try {
         const { data } = await api.get("/current");
         commit("currentUser", {

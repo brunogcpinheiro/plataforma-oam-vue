@@ -17,7 +17,7 @@ const router = new Router({
     {
       path: "/login",
       name: "Login",
-      component: Login,
+      component: Login
     },
     {
       path: "/dashboard/profile",
@@ -72,7 +72,7 @@ const router = new Router({
     },
     {
       path: "*",
-      redirect: '/login'
+      redirect: "/login"
     }
   ]
 });

@@ -5,7 +5,7 @@
       <h1>Meus Cursos</h1>
       <v-layout>
         <v-flex class="content">
-          
+
           <v-card class="course">
             <v-card-media
               src="https://www.corpuzfamilydentistry.com/blog/wp-content/uploads/2015/03/invisalign-copy.jpg"
@@ -39,7 +39,7 @@
               <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
             </v-card-actions>
           </v-card>
-          
+
           <v-card class="course">
             <v-card-media
               src="http://especialize-se.com.br/wp-content/uploads/2018/01/ortodontia.jpg"
@@ -76,6 +76,9 @@ export default {
     ...mapGetters([
       'user'
     ])
+  },
+  created() {
+    return this.$store.dispatch('fetchUsersTable');
   },
   methods: {
     onLogout() {

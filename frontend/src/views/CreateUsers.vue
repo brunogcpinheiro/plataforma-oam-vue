@@ -44,7 +44,7 @@
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
             </v-flex>
-          </v-layout> 
+          </v-layout>
       </v-card>
     </v-container>
   </div>
@@ -74,7 +74,7 @@ import AdminHeader from '../components/AdminHeader.vue';
           password: this.password,
           admin: this.admin,
         };
-        
+
         if (this.username && this.email && this.password) {
           this.$store.dispatch('register', registerData);
           const toast = this.$swal.mixin({
@@ -84,12 +84,11 @@ import AdminHeader from '../components/AdminHeader.vue';
             padding: '2em',
             timer: 2000
           });
-          
           toast({
             type: 'success',
             title: 'Usuário cadastrado com sucesso!'
           });
-          this.$router.replace('/dashboard/courses');
+          this.$router.replace('/dashboard/courses', this.$store.dispatch('fetchUsersTable'));
         } else {
           const toast = this.$swal.mixin({
             toast: true,
@@ -98,7 +97,7 @@ import AdminHeader from '../components/AdminHeader.vue';
             padding: '2em',
             timer: 2000
           });
-          
+
           toast({
             type: 'error',
             title: 'Preencha todos os campos!'
@@ -111,7 +110,7 @@ import AdminHeader from '../components/AdminHeader.vue';
 
 <style scoped>
 .create-card {
-    margin-top: 30px;
-    padding: 30px;
+  margin-top: 30px;
+  padding: 30px;
 }
 </style>
