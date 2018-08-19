@@ -7,7 +7,7 @@
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat v-show="user.user.admin" to="/dashboard/admin"><v-icon>supervised_user_circle</v-icon> Admin</v-btn>
+        <v-btn flat v-show="user && user.user.admin" to="/dashboard/admin"><v-icon>supervised_user_circle</v-icon> Admin</v-btn>
         <v-btn flat @click="onLogout"><v-icon>exit_to_app</v-icon> Sair</v-btn>
       </v-toolbar-items>
     </v-toolbar>

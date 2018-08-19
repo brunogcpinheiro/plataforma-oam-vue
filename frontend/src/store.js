@@ -8,13 +8,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
+    status: "",
     user: null,
     usersTable: null
   },
   mutations: {
     authUser(state, userData) {
       state.token = userData.token;
+      state.status = "success";
       //router.replace("/dashboard/courses");
+    },
+    authError(state) {
+      state.status = "error";
     },
     registerUser(state, registerUser) {
       state.username = registerUser.username;
@@ -30,6 +35,9 @@ export default new Vuex.Store({
     },
     logoutUser(state) {
       state.token = null;
+      state.user = null;
+      state.usersTable = null;
+      state.status = "";
     }
   },
   actions: {
@@ -51,17 +59,22 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async login({ commit, dispatch }, authData) {
+    async login({ commit }, authData) {
       try {
         const { data } = await api.post("/login", {
           email: authData.email,
           password: authData.password
         });
+        /*global localStorage*/ localStorage.setItem("token", data.token);
+        api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         await commit("authUser", {
-          token: data.token
+          token: data.token,
+          status: "success"
         });
       } catch (error) {
         console.log(error);
+        commit("authError", error);
+        /*global localStorage*/ localStorage.removeItem("token");
       }
     },
     async fetchUsersTable({ commit }) {
@@ -84,10 +97,17 @@ export default new Vuex.Store({
     },
     logoutUser({ commit }) {
       commit("logoutUser");
+      delete api.defaults.headers.common["Authorization"];
       router.replace("/login");
     }
   },
   getters: {
+    authStatus: state => {
+      return state.status;
+    },
+    token: state => {
+      return state.token;
+    },
     user: state => {
       return state.user;
     },

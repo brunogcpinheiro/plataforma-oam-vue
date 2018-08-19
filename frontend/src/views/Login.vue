@@ -13,7 +13,19 @@
               name="password"
               type="password"
             ></v-text-field>
-            <v-btn type="submit" color="primary" large>Entrar</v-btn>
+            <v-btn
+              :loading="loading"
+              :disabled="loading"
+              color="primary"
+              type="submit"
+              large
+              @click.native="loader = 'loading'"
+            >
+              Entrar
+              <span slot="loader" class="custom-loader">
+                <v-icon light>cached</v-icon>
+              </span>
+            </v-btn>
         </v-form>
     </div>
 </template>
@@ -27,8 +39,20 @@ export default {
         return {
             email: '',
             password: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            loader: null,
+            loading: false
         };
+    },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+
+        setTimeout(() => (this[l] = false), 1000)
+
+        this.loader = null
+      }
     },
     methods: {
     onSubmit() {
@@ -36,9 +60,11 @@ export default {
         email: this.email,
         password: this.password
       }).then(() => {
-        /*global localStorage*/ localStorage.setItem('token', this.$store.state.token);
-        api.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token;
         this.$router.replace('/dashboard/courses');
+      }).catch(err => {
+        if(err.status === 401) {
+          this.$store.dispatch('authError');
+        }
       });
     }
   },
@@ -84,9 +110,40 @@ label {
   border-radius: 10px;
 }
 
-.v-btn:last-child {
-  background: #842e41;
-  color: #fff;
-  cursor: pointer;
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

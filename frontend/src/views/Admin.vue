@@ -115,7 +115,7 @@ export default {
         usersHeaders: [
           { text: 'id', value: 'id' },
           { text: 'Usuário', value: 'username' },
-          { text: 'E-mail', sortable: false, value: 'email' },
+          { text: 'E-mail', value: 'email' },
           { text: 'Admin', sortable: false, value: 'admin' },
           { text: 'Cursos (id)', sortable: false, value: 'courses' },
           { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
@@ -183,6 +183,6 @@ h1 {
 
 h2 {
   margin-left: 10px;
-  color: #182c61;
+  color: #2d3436;
 }
 </style>
