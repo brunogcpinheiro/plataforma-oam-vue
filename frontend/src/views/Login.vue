@@ -31,8 +31,7 @@
 </template>
 
 <script>
-import api from '../services/api';
-
+import { mapGetters } from 'vuex';
 export default {
     name: "Login",
     data() {
@@ -41,18 +40,24 @@ export default {
             password: '',
             isLoggedIn: false,
             loader: null,
-            loading: false
+            loading: false,
         };
     },
     watch: {
       loader () {
-        const l = this.loader
-        this[l] = !this[l]
+        const l = this.loader;
+        this[l] = !this[l];
 
-        setTimeout(() => (this[l] = false), 1000)
+        setTimeout(() => (this[l] = false), 1000);
 
-        this.loader = null
+        this.loader = null;
       }
+    },
+    computed: {
+      ...mapGetters([
+        'statusType',
+        'status'
+      ])
     },
     methods: {
     onSubmit() {
@@ -60,12 +65,50 @@ export default {
         email: this.email,
         password: this.password
       }).then(() => {
+        if(this.status === 'success') {
+          const toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            padding: '2em',
+            timer: 2000
+          });
+          toast({
+            type: 'success',
+            title: 'Login efetuado com sucesso!'
+          });
+        } else if (this.status === 'error' && this.statusType === 'password') {
+          const toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            padding: '2em',
+            timer: 2000
+          });
+          toast({
+            type: 'error',
+            title: 'Senha inválida. Digite novamente.'
+          });
+        } else if (this.status === 'error' && this.statusType === 'email') {
+          const toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            padding: '2em',
+            timer: 2000
+          });
+          toast({
+            type: 'error',
+            title: 'Usuário não cadastrado.'
+          });
+        }
         this.$router.replace('/dashboard/courses');
       }).catch(err => {
-        if(err.status === 401) {
-          this.$store.dispatch('authError');
-        }
+        return err;
       });
+    },
+    clearAlert() {
+      return this.$store.dispatch('clearAlert');
     }
   },
 };

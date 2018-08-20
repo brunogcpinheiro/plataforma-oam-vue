@@ -7,6 +7,7 @@ import router from "./router";
 import store from "./store";
 import VueSweetalert2 from "vue-sweetalert2";
 import Vuelidate from "vuelidate";
+import api from './services/api';
 
 import "vuetify/dist/vuetify.min.css";
 
@@ -23,6 +24,13 @@ Vue.use(VueSweetalert2);
 Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
+
+/*global localStorage*/
+
+const token = localStorage.getItem('token');
+if (token) {
+  api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
 
 /* eslint-disable no-new */
 new Vue({

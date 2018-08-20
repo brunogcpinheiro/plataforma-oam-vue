@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     token: null,
     status: "",
+    statusType: "",
     user: null,
     usersTable: null
   },
@@ -18,8 +19,13 @@ export default new Vuex.Store({
       state.status = "success";
       //router.replace("/dashboard/courses");
     },
-    authError(state) {
+    authError(state, message) {
+      state.statusType = message;
       state.status = "error";
+    },
+    clearAlert(state) {
+      state.status = '';
+      state.statusType = '';
     },
     registerUser(state, registerUser) {
       state.username = registerUser.username;
@@ -72,8 +78,7 @@ export default new Vuex.Store({
           status: "success"
         });
       } catch (error) {
-        console.log(error);
-        commit("authError", error);
+        commit("authError", error.response.data[0].field);
         /*global localStorage*/ localStorage.removeItem("token");
       }
     },
@@ -95,6 +100,9 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    clearAlert({ commit }) {
+      commit('clearAlert');
+    },
     logoutUser({ commit }) {
       commit("logoutUser");
       delete api.defaults.headers.common["Authorization"];
@@ -102,7 +110,10 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    authStatus: state => {
+    statusType: state => {
+      return state.statusType;
+    },
+    status: state => {
       return state.status;
     },
     token: state => {
