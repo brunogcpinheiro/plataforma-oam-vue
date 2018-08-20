@@ -33,6 +33,7 @@
                 <v-icon light>cached</v-icon>
               </span>
             </v-btn>
+            <small>Esqueceu a senha? <a>Clique aqui</a></small>
         </v-form>
     </div>
 </template>
@@ -186,6 +187,10 @@ label {
 
 .invalid {
   color: red;
+}
+
+small {
+  margin-top: 10px;
 }
 
 .custom-loader {
