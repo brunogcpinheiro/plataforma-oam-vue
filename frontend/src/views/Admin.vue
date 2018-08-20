@@ -32,7 +32,7 @@
                           <td>{{ props.item.cursos }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small>Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteUser">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -143,6 +143,12 @@ export default {
         valid: true
       };
     },
+    methods: {
+      deleteUser() {
+        this.$store.dispatch('removeUser', this.$store.getters.user.user.id);
+        this.$router.replace('/dashboard/courses');
+      }
+    }
 };
 </script>
 

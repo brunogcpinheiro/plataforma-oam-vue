@@ -31,10 +31,10 @@ class SessionController {
     return user;
   }
   
-  async removeUser({ params }) {
+  async destroy({ params }) {
     const user = await User.find(params.id);
-    
     await user.delete();
+    return user;
   }
 }
 

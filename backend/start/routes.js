@@ -22,6 +22,7 @@ Route.post("/login", "SessionController.login");
 Route.get("/current", "SessionController.currentUser").middleware('auth');
 Route.post("/dashboard/admin/users/create", "SessionController.register").middleware('auth');
 Route.get("/dashboard/admin/users", "SessionController.index").middleware('auth');
+Route.delete("/dashboard/admin/users/:id", "SessionController.destroy").middleware('auth');
 
 /**
  * Course Routes

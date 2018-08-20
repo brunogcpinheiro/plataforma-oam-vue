@@ -100,6 +100,14 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    async removeUser({ commit }, userId) {
+      try {
+        const { data } = await api.delete(`/dashboard/admin/users/${userId}`);
+        commit('removeUser', data.id);
+      } catch(err) {
+        console.log(err);
+      }
+    },
     clearAlert({ commit }) {
       commit('clearAlert');
     },

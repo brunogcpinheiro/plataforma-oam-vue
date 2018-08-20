@@ -45,7 +45,11 @@ class CourseController {
    * Delete a course with id.
    * DELETE courses/:id
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params }) {
+    const course = await Course.find(params.id);
+    await course.delete();
+    return course;
+  }
 }
 
 module.exports = CourseController;
