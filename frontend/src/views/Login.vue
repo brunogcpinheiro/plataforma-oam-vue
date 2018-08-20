@@ -6,15 +6,19 @@
               label="E-mail"
               id="email"
               @input="$v.email.$touch()"
+              @blur="$v.email.$touch()"
               v-model="email"
               name="email"
+              :error-messages="emailErrors"
             ></v-text-field>
-            <div>{{$v}}</div>
             <v-text-field
               label="Senha"
               v-model="password"
               id="password"
               type="password"
+              @input="$v.password.$touch()"
+              @blur="$v.password.$touch()"
+              :error-messages="passwordErrors"
             ></v-text-field>
             <v-btn
               :loading="loading"
@@ -62,13 +66,29 @@ export default {
       ...mapGetters([
         'statusType',
         'status'
-      ])
+      ]),
+      emailErrors () {
+        const errors = [];
+        if (!this.$v.email.$dirty) return errors;
+        !this.$v.email.email && errors.push('Insira um e-mail válido.');
+        !this.$v.email.required && errors.push('E-mail obrigatório');
+        return errors;
+      },
+      passwordErrors () {
+        const errors = [];
+        if (!this.$v.password.$dirty) return errors;
+        !this.$v.password.required && errors.push('Senha obrigatória.');
+        return errors;
+      },
     },
     validations: {
       email: {
         required,
-        email
+        email,
       },
+      password: {
+        required,
+      }
     },
     methods: {
     onSubmit() {
@@ -82,7 +102,7 @@ export default {
             position: 'top-end',
             showConfirmButton: false,
             padding: '2em',
-            timer: 2000
+            timer: 3000
           });
           toast({
             type: 'success',
@@ -94,7 +114,7 @@ export default {
             position: 'top-end',
             showConfirmButton: false,
             padding: '2em',
-            timer: 2000
+            timer: 3000
           });
           toast({
             type: 'error',
@@ -106,7 +126,7 @@ export default {
             position: 'top-end',
             showConfirmButton: false,
             padding: '2em',
-            timer: 2000
+            timer: 3000
           });
           toast({
             type: 'error',
@@ -162,6 +182,10 @@ label {
   margin: 10px;
   width: 350px;
   border-radius: 10px;
+}
+
+.invalid {
+  color: red;
 }
 
 .custom-loader {
