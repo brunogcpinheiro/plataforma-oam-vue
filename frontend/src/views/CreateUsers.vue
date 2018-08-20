@@ -88,7 +88,8 @@ import AdminHeader from '../components/AdminHeader.vue';
             type: 'success',
             title: 'Usuário cadastrado com sucesso!'
           });
-          this.$router.replace('/dashboard/courses', this.$store.dispatch('fetchUsersTable'));
+          this.$router.replace('/dashboard/courses');
+          this.$store.dispatch('fetchUsersTable');
         } else {
           const toast = this.$swal.mixin({
             toast: true,

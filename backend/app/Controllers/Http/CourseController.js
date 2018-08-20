@@ -7,17 +7,17 @@ class CourseController {
    * Show a list of all courses.
    * GET courses
    */
-  async index() {
-    const courses = await Course.all();
-    return courses;
+  async index({ auth }) {
+    const user = await auth.getUser();
+    return await user.courses().fetch();
   }
 
   /**
    * Create/save a new course.
    * POST courses
    */
-  async store({ request }) {
-    const data = request.only(["title", "url", "author", "description"]);
+  async store({ auth, request }) {
+    const data = request.all(["title", "url", "author", "description"]);
     const course = await Course.create(data);
 
     return course;

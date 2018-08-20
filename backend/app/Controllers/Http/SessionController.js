@@ -30,6 +30,12 @@ class SessionController {
     
     return user;
   }
+  
+  async removeUser({ params }) {
+    const user = await User.find(params.id);
+    
+    await user.delete();
+  }
 }
 
 module.exports = SessionController;

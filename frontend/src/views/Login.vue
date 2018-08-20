@@ -4,13 +4,16 @@
             <img src="../assets/logo.png" alt="Logo" />
             <v-text-field
               label="E-mail"
+              id="email"
+              @input="$v.email.$touch()"
               v-model="email"
               name="email"
             ></v-text-field>
+            <div>{{$v}}</div>
             <v-text-field
               label="Senha"
               v-model="password"
-              name="password"
+              id="password"
               type="password"
             ></v-text-field>
             <v-btn
@@ -32,6 +35,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { required, email } from 'vuelidate/lib/validators';
+
 export default {
     name: "Login",
     data() {
@@ -58,6 +63,12 @@ export default {
         'statusType',
         'status'
       ])
+    },
+    validations: {
+      email: {
+        required,
+        email
+      },
     },
     methods: {
     onSubmit() {

@@ -143,9 +143,6 @@ export default {
         valid: true
       };
     },
-    created() {
-      return this.$store.dispatch('fetchUsersTable');
-    },
 };
 </script>
 

@@ -19,11 +19,12 @@ const Route = use("Route");
  * User Routes
  */
 Route.post("/login", "SessionController.login");
-Route.get("/current", "SessionController.currentUser");
-Route.post("/dashboard/admin/users/create", "SessionController.register");
-Route.get("/dashboard/admin/users", "SessionController.index");
+Route.get("/current", "SessionController.currentUser").middleware('auth');
+Route.post("/dashboard/admin/users/create", "SessionController.register").middleware('auth');
+Route.get("/dashboard/admin/users", "SessionController.index").middleware('auth');
 
 /**
  * Course Routes
  */
-Route.post("/dashboard/admin/courses/create", "CourseController.store");
+Route.get("/dashboard/admin/courses", "CourseController.index").middleware('auth');
+Route.post("/dashboard/admin/courses/create", "CourseController.store").middleware('auth');
