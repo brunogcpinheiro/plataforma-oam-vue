@@ -8,9 +8,12 @@
           <v-form class="form">
             <v-text-field
               label="Name"
+              disabled
+              :value="user.user.username"
             ></v-text-field>
             <v-text-field
               label="E-mail"
+              :value="user.user.email"
               disabled
             ></v-text-field>
             <div class="passwords-field">
@@ -33,13 +36,19 @@
 
 <script>
 import Header from '../components/Header.vue';
+import { mapGetters } from 'vuex';
 
-  export default {
-    name: 'Profile',
-    components: {
-      Header
-    },
-  };
+export default {
+  name: 'Profile',
+  components: {
+    Header
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
+  }
+};
 </script>
 
 <style scoped>
