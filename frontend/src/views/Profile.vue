@@ -88,14 +88,51 @@ export default {
             this.old_password = '';
             this.password = '';
             this.password_confirmation = '';
-            console.log('Alterada com sucesso');
+            
+            const toast = this.$swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              padding: '2em',
+              timer: 2000
+            });
+            toast({
+              type: 'success',
+              title: 'Senha alterada com sucesso!'
+            });
+            this.$router.push('/dashboard/courses');
         })
         .catch(error => {
             // clear form inputs
             this.old_password = '';
             this.password = '';
             this.password_confirmation = '';
-            console.log('Senha atual inválida');
+            
+            if(error.response.data[0].field === 'old_password') {
+              const toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                padding: '2em',
+                timer: 2000
+              });
+              toast({
+                type: 'error',
+                title: 'Senha atual inválida! Digite novamente.'
+              });
+            } else if(error.response.data[0].field === 'password') {
+              const toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                padding: '2em',
+                timer: 2000
+              });
+              toast({
+                type: 'error',
+                title: 'As novas senhas não conferem! Digite novamente.'
+              });
+            }
         });
     },
   }
