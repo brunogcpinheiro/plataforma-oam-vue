@@ -39,6 +39,9 @@ export default new Vuex.Store({
     currentUser(state, currentUserData) {
       state.user = currentUserData;
     },
+    changePassword(state, changeData) {
+      state.user.password = changeData.password;
+    },
     logoutUser(state) {
       state.token = null;
       state.user = null;

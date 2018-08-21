@@ -5,7 +5,7 @@
       <h1>Alterar Perfil</h1>
       <v-layout justify-center>
         <v-flex>
-          <v-form class="form">
+          <v-form class="form" @submit.prevent="changePassword">
             <v-text-field
               label="Name"
               disabled
@@ -18,15 +18,25 @@
             ></v-text-field>
             <div class="passwords-field">
               <v-text-field
+                label="Senha atual"
+                name="old_password"
+                v-model="old_password"
+                type="password"
+              ></v-text-field>
+              <v-text-field
                 label="Nova senha"
+                name="password"
+                v-model="password"
                 type="password"
               ></v-text-field>
               <v-text-field
                 label="Confirmar nova senha"
+                name="password_confirmation"
+                v-model="password_confirmation"
                 type="password"
               ></v-text-field>
             </div>
-            <v-btn color="primary">Alterar</v-btn>
+            <v-btn color="primary" type="submit">Alterar</v-btn>
           </v-form>
         </v-flex>
       </v-layout>
@@ -36,6 +46,7 @@
 
 <script>
 import Header from '../components/Header.vue';
+import api from '../services/api';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -43,10 +54,50 @@ export default {
   components: {
     Header
   },
+  data() {
+    return {
+      old_password: '',
+      password: '',
+      password_confirmation: ''
+    };
+  },
   computed: {
     ...mapGetters([
       'user'
     ])
+  },
+  methods: {
+    changePassword() {
+      /*global localStorage*/
+      const token = localStorage.getItem('token');
+
+      api.put('/dashboard/profile/change_password',
+          {
+            old_password: this.old_password,
+            password: this.password,
+            password_confirmation: this.password_confirmation,
+          },
+          {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+          }
+        )
+        .then(response => {
+            // clear form inputs
+            this.old_password = '';
+            this.password = '';
+            this.password_confirmation = '';
+            console.log('Alterada com sucesso');
+        })
+        .catch(error => {
+            // clear form inputs
+            this.old_password = '';
+            this.password = '';
+            this.password_confirmation = '';
+            console.log('Senha atual inválida');
+        });
+    },
   }
 };
 </script>

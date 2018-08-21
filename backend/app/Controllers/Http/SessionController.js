@@ -1,6 +1,8 @@
 "use strict";
 
 const User = use("App/Models/User");
+const Hash = use("Hash")
+const Persona = use('Persona')
 
 class SessionController {
   async index() {
@@ -29,6 +31,12 @@ class SessionController {
     const user = await auth.getUser();
     
     return user;
+  }
+  
+  async changePassword ({ request, auth }) {
+    const payload = request.only(['old_password', 'password', 'password_confirmation']);
+    const user = auth.user;
+    await Persona.updatePassword(user, payload);
   }
   
   async destroy({ params }) {
