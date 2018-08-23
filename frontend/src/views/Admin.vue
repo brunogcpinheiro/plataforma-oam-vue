@@ -29,10 +29,10 @@
                           <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
-                          <td>{{ props.item.cursos }}</td>
+                          <td>{{ props.item.courses }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small @click="deleteUser">Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteUserItem(props.item.id)">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -66,7 +66,7 @@
                           <td>{{ props.item.user_id }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small @click="deleteUser">Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteUserItem(props.item.id)">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -122,10 +122,25 @@ export default {
       return this.$store.dispatch('fetchUsersTable');
     },
     methods: {
-      deleteUser() {
-        this.$store.dispatch('removeUser', this.$store.getters.user.user.id);
-        this.$router.replace('/dashboard/courses');
-      }
+      deleteUserItem (item) {
+        const index = this.users.indexOf(item);
+        this.$swal({
+          title: 'Você tem certeza que deseja deletar este usuário?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, delete!'
+        }).then((result) => {
+          if (result.value) {
+            this.$swal(
+              'Deletado!',
+            );
+          }
+          this.users.splice(index, 1);
+          this.$store.dispatch('removeUser', item);
+        });
+      },
     }
 };
 </script>

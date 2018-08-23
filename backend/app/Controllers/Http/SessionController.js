@@ -1,14 +1,14 @@
 "use strict";
 
+/*global use*/
 const User = use("App/Models/User");
-const Hash = use("Hash");
 const Persona = use('Persona');
 
 class SessionController {
   async index() {
-    const users = await User.all();
+    const users = await User.query().with('courses').fetch();
     
-    return users;
+    return users ;
   }
   
   async register({ request }) {
