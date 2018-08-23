@@ -1,8 +1,8 @@
 "use strict";
 
 const User = use("App/Models/User");
-const Hash = use("Hash")
-const Persona = use('Persona')
+const Hash = use("Hash");
+const Persona = use('Persona');
 
 class SessionController {
   async index() {
@@ -12,9 +12,13 @@ class SessionController {
   }
   
   async register({ request }) {
-    const data = request.only(["username", "email", "password", "admin"]);
-
+    const { courses, ...data } = request.only(["username", "email", "password", "admin", "courses"]);
     const user = await User.create(data);
+    
+    if(courses && courses.length > 0) {
+      await user.courses().attach(courses);
+      user.courses = await user.courses().fetch();
+    }
 
     return user;
   }

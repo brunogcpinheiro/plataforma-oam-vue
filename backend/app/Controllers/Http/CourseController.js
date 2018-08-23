@@ -8,8 +8,9 @@ class CourseController {
    * GET courses
    */
   async index({ auth }) {
-    const user = await auth.getUser();
-    return await user.courses().fetch();
+    const courses = await Course.all();
+    
+    return courses;
   }
 
   /**
@@ -17,8 +18,13 @@ class CourseController {
    * POST courses
    */
   async store({ auth, request }) {
-    const data = request.all(["title", "url", "author", "description"]);
+    const { users, ...data } = request.only(["title", "url", "author", "description", "users"]);
     const course = await Course.create(data);
+    
+    if(users && users.length > 0) {
+      await course.users().attach(users);
+      course.users = await course.users().fetch();
+    }
 
     return course;
   }

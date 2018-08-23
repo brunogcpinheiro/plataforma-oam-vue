@@ -18,7 +18,7 @@ class User extends Model {
   }
 
   courses() {
-    return this.hasMany("App/Models/Course");
+    return this.belongsToMany("App/Models/Course");
   }
 }
 

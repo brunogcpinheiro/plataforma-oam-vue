@@ -41,38 +41,13 @@
             </div>
 
             <div class="courses-table">
-              <div class="courses-actions">
+              <div class="table-actions">
                 <h2>Tabela de Cursos</h2>
-                <v-dialog v-model="courseDialog" max-width="500px">
-                    <v-btn slot="activator" color="secondary"><v-icon>add</v-icon> Adicionar Curso</v-btn>
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline">Adicionar Curso</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container grid-list-md>
-                          <v-layout wrap>
-                            <v-flex xs12>
-                              <v-text-field
-                                  label="Nome do curso *"
-                                  required
-                              ></v-text-field>
-                            </v-flex>
-                          </v-layout>
-                        </v-container>
-                        <small>* Campos obrigatórios</small>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="secondary" @click.native="courseDialog = false">Salvar</v-btn>
-                        <v-btn color="error" @click.native="courseDialog = false">Fechar</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                <v-btn color="secondary" to="/dashboard/admin/courses/create"><v-icon>add</v-icon> Adicionar Curso</v-btn>
               </div>
-              <v-layout>
+                <v-layout>
                     <v-flex>
-                      <v-card-title>
+                        <v-card-title>
                           <v-text-field
                             v-model="courseSearch"
                             append-icon="search"
@@ -88,10 +63,10 @@
                         >
                         <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
-                          <td>{{ props.item.name }}</td>
+                          <td>{{ props.item.user_id }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small>Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteUser">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -142,6 +117,9 @@ export default {
         password: '',
         valid: true
       };
+    },
+    created() {
+      return this.$store.dispatch('fetchUsersTable');
     },
     methods: {
       deleteUser() {

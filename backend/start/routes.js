@@ -20,7 +20,7 @@ const Route = use("Route");
  */
 Route.post("/login", "SessionController.login");
 Route.get("/current", "SessionController.currentUser").middleware('auth');
-Route.post("/dashboard/admin/users/create", "SessionController.register").middleware('auth');
+Route.post("/dashboard/admin/users/create", "SessionController.register");
 Route.get("/dashboard/admin/users", "SessionController.index").middleware('auth');
 Route.delete("/dashboard/admin/users/:id", "SessionController.destroy").middleware('auth');
 Route.put("/dashboard/profile/change_password", "SessionController.changePassword").middleware('auth');
