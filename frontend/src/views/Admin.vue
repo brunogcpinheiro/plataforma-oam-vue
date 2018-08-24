@@ -32,7 +32,7 @@
                           <td>{{ props.item.courses }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small @click="deleteUserItem(props.item.id)">Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteUserItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -145,7 +145,7 @@ export default {
               'success'
             );
             this.users.splice(index, 1);
-            this.$store.dispatch('removeUser', item);
+            this.$store.dispatch('removeUser', item.id);
           } else if (result.dismiss === this.$swal.DismissReason.cancel) {
             this.$swal(
               'Cancelado',
