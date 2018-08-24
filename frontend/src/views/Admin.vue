@@ -79,6 +79,7 @@
 
 <script>
 import AdminHeader from '../components/AdminHeader.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: "Admin",
@@ -92,10 +93,10 @@ export default {
           { text: 'Usuário', value: 'username' },
           { text: 'E-mail', value: 'email' },
           { text: 'Admin', sortable: false, value: 'admin' },
-          { text: 'Cursos (id)', sortable: false, value: 'courses' },
+          { text: 'Cursos ( ID - Nome )', sortable: false, value: 'courses' },
           { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
         ],
-        users: this.$store.state.usersTable,
+        users: this.$store.getters.usersTable,
         coursesHeaders: [
           { text: 'id', value: 'id' },
           { text: 'Nome', value: 'name' },
@@ -118,6 +119,11 @@ export default {
         valid: true
       };
     },
+    computed: {
+      ...mapGetters([
+        'usersTable'
+      ])
+    },
     created() {
       return this.$store.dispatch('fetchUsersTable');
     },
@@ -135,10 +141,18 @@ export default {
           if (result.value) {
             this.$swal(
               'Deletado!',
+              '',
+              'success'
+            );
+            this.users.splice(index, 1);
+            this.$store.dispatch('removeUser', item);
+          } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+            this.$swal(
+              'Cancelado',
+              '',
+              'error'
             );
           }
-          this.users.splice(index, 1);
-          this.$store.dispatch('removeUser', item);
         });
       },
     }

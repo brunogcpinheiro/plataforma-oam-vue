@@ -24,7 +24,7 @@ export default {
       this.$store.dispatch("logoutUser");
       /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
-    }
+    },
   },
   beforeCreate() {
     return this.$store.dispatch('fetchUser');

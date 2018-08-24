@@ -32,8 +32,7 @@ class SessionController {
   }
   
   async currentUser({ request, auth }) {
-    const user = await auth.getUser();
-    
+    const user = await User.query().where('id', auth.current.user.id).with('courses').firstOrFail();
     return user;
   }
   
