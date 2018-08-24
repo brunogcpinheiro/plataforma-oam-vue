@@ -18,13 +18,8 @@ class CourseController {
    * POST courses
    */
   async store({ auth, request }) {
-    const { users, ...data } = request.only(["title", "url", "author", "description", "users"]);
+    const { data } = request.only(["title", "url", "author", "description"]);
     const course = await Course.create(data);
-    
-    if(users && users.length > 0) {
-      await course.users().attach(users);
-      course.users = await course.users().fetch();
-    }
 
     return course;
   }

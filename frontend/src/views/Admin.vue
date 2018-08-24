@@ -199,6 +199,12 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  padding: 24px;
+}
+
+.courses-list > p{
+  margin: 0;
+  padding: 0;
 }
 
 h2 {

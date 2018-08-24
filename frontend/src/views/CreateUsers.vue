@@ -36,13 +36,17 @@
                 ></v-checkbox>
                 <br />
                 <v-autocomplete
-                  :items="['Ortodontia Iniciante I', 'Ortodontia Iniciante II', 'Ortodontia Intermediária I', 'Ortodontia Avançada I', 'Ortodontia Avançada IV']"
+                  v-for="i in items"
+                  :key="i.id"
+                  :items="items"
                   label="Cursos *"
                   multiple
                   chips
                 ></v-autocomplete>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
+              <br>
+              <small>* - Campos obrigatórios</small>
             </v-flex>
           </v-layout>
       </v-card>
@@ -64,7 +68,13 @@ import AdminHeader from '../components/AdminHeader.vue';
             username: '',
             email: '',
             password: '',
+            items: this.coursesTable
         };
+    },
+    computed: {
+      coursesTable() {
+        return this.$store.getters.coursesTable.map(t => console.log(t.title));
+      }
     },
     methods: {
       onSubmit() {

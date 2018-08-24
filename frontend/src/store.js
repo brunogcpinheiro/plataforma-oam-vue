@@ -150,6 +150,6 @@ export default new Vuex.Store({
     },
     coursesTable: state => {
       return state.coursesTable;
-    }
+    },
   }
 });
