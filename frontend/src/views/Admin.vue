@@ -29,7 +29,9 @@
                           <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
-                          <td>{{ props.item.courses }}</td>
+                          <td class="courses-list" v-for="course in props.item.courses">
+                            <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
+                          </td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
                             <v-btn color="error" small @click="deleteUserItem(props.item)">Excluir</v-btn>
@@ -189,6 +191,13 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 h2 {
