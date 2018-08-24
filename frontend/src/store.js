@@ -11,7 +11,8 @@ export default new Vuex.Store({
     status: "",
     statusType: "",
     user: null,
-    usersTable: null
+    usersTable: null,
+    coursesTable: null
   },
   mutations: {
     authUser(state, userData) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     fetchUsersMutation(state, usersData) {
       state.usersTable = usersData;
     },
+    fetchCoursesMutation(state, coursesData) {
+      state.coursesTable = coursesData;
+    },
     currentUser(state, currentUserData) {
       state.user = currentUserData;
     },
@@ -46,6 +50,7 @@ export default new Vuex.Store({
       state.token = null;
       state.user = null;
       state.usersTable = null;
+      state.coursesTable = null;
       state.status = "";
     }
   },
@@ -93,6 +98,14 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    async fetchCoursesTable({ commit }) {
+      try {
+        const { data } = await api.get("/dashboard/admin/courses");
+        commit("fetchCoursesMutation", data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async fetchUser({ commit }) {
       try {
         const { data } = await api.get("/current");
@@ -134,6 +147,9 @@ export default new Vuex.Store({
     },
     usersTable: state => {
       return state.usersTable;
+    },
+    coursesTable: state => {
+      return state.coursesTable;
     }
   }
 });

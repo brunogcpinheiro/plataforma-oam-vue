@@ -42,7 +42,8 @@ export default {
     ])
   },
   created() {
-    return this.$store.dispatch('fetchUsersTable');
+    this.$store.dispatch('fetchUsersTable');
+    this.$store.dispatch('fetchCoursesTable');
   },
   methods: {
     onLogout() {

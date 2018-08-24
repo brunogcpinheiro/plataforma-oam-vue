@@ -65,7 +65,9 @@
                         >
                         <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
-                          <td>{{ props.item.user_id }}</td>
+                          <td>{{ props.item.title }}</td>
+                          <td>{{ props.item.author }}</td>
+                          <td>{{ props.item.description }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
                             <v-btn color="error" small @click="deleteUserItem(props.item.id)">Excluir</v-btn>
@@ -101,15 +103,12 @@ export default {
         users: this.$store.getters.usersTable,
         coursesHeaders: [
           { text: 'id', value: 'id' },
-          { text: 'Nome', value: 'name' },
+          { text: 'Nome', sortable: false, value: 'name' },
+          { text: 'Autor', sortable: false, value: 'author' },
+          { text: 'Descrição', sortable: false, value: 'description' },
           { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
         ],
-        courses: [
-          {
-            id: "1",
-            name: 'Ortodontia Iniciante I',
-          },
-        ],
+        courses: this.$store.getters.coursesTable,
         userDialog: false,
         courseDialog: false,
         userSearch: '',
@@ -123,11 +122,13 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'usersTable'
+        'usersTable',
+        'coursesTable'
       ])
     },
     created() {
-      return this.$store.dispatch('fetchUsersTable');
+      this.$store.dispatch('fetchUsersTable');
+      this.$store.dispatch('fetchCoursesTable');
     },
     methods: {
       deleteUserItem (item) {
