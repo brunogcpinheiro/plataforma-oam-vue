@@ -29,7 +29,7 @@
                           <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
-                          <td class="courses-list" v-for="course in props.item.courses">
+                          <td class="courses-list" v-for="course in props.item.courses" :key="course.id">
                             <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
                           </td>
                           <td>
@@ -202,7 +202,7 @@ h1 {
   padding: 24px;
 }
 
-.courses-list > p{
+.courses-list > p {
   margin: 0;
   padding: 0;
 }

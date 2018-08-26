@@ -9,7 +9,6 @@ class CourseController {
    */
   async index({ auth }) {
     const courses = await Course.all();
-    
     return courses;
   }
 
@@ -17,10 +16,9 @@ class CourseController {
    * Create/save a new course.
    * POST courses
    */
-  async store({ auth, request }) {
-    const { data } = request.only(["title", "url", "author", "description"]);
-    const course = await Course.create(data);
-
+  async createCourse({ request }) {
+    // const { data } = request.all();
+    const course = await Course.create(request.all());
     return course;
   }
 

@@ -25,14 +25,20 @@ export default new Vuex.Store({
       state.status = "error";
     },
     clearAlert(state) {
-      state.status = '';
-      state.statusType = '';
+      state.status = "";
+      state.statusType = "";
     },
     registerUser(state, registerUser) {
       state.username = registerUser.username;
       state.email = registerUser.email;
       state.password = registerUser.password;
       state.admin = registerUser.admin;
+    },
+    createCourse(state, courseData) {
+      state.title = courseData.title;
+      state.url = courseData.url;
+      state.author = courseData.author;
+      state.description = courseData.description;
     },
     fetchUsersMutation(state, usersData) {
       state.usersTable = usersData;
@@ -68,6 +74,24 @@ export default new Vuex.Store({
           email: data.email,
           password: data.password,
           admin: data.admin
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createCourse({ commit }, courseData) {
+      try {
+        const { data } = await api.post("/dashboard/admin/courses/create", {
+          title: courseData.title,
+          url: courseData.url,
+          author: courseData.author,
+          description: courseData.description
+        });
+        commit("createCourse", {
+          title: data.title,
+          url: data.url,
+          author: data.author,
+          description: data.description
         });
       } catch (error) {
         console.log(error);
@@ -119,12 +143,12 @@ export default new Vuex.Store({
     async removeUser({ commit }, userId) {
       try {
         await api.delete(`/dashboard/admin/users/${userId}`);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
     },
     clearAlert({ commit }) {
-      commit('clearAlert');
+      commit("clearAlert");
     },
     logoutUser({ commit }) {
       commit("logoutUser");
@@ -150,6 +174,6 @@ export default new Vuex.Store({
     },
     coursesTable: state => {
       return state.coursesTable;
-    },
+    }
   }
 });
