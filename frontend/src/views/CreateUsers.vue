@@ -36,13 +36,44 @@
                 ></v-checkbox>
                 <br />
                 <v-autocomplete
-                  v-for="i in items"
-                  :key="i.id"
-                  :items="items"
+                  :items="courses"
                   label="Cursos *"
                   multiple
                   chips
-                ></v-autocomplete>
+                >
+                  <template
+                    slot="selection"
+                    slot-scope="data"
+                  >
+                    <v-chip
+                      :selected="data.selected"
+                      close
+                      class="chip--select-multi"
+                      @input="data.parent.selectItem(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.url">
+                      </v-avatar>
+                      {{ data.item.title }}
+                    </v-chip>
+                  </template>
+                  <template
+                slot="item"
+                slot-scope="data"
+              >
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                </template>
+                <template v-else>
+                  <v-list-tile-avatar>
+                    <img :src="data.item.url">
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
+                  </v-list-tile-content>
+                </template>
+              </template>
+                </v-autocomplete>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
               <br>
@@ -68,13 +99,8 @@ import AdminHeader from '../components/AdminHeader.vue';
             username: '',
             email: '',
             password: '',
-            items: this.coursesTable
+            courses: this.$store.getters.coursesTable,
         };
-    },
-    computed: {
-      coursesTable() {
-        return this.$store.getters.coursesTable.map(t => console.log(t.title));
-      }
     },
     methods: {
       onSubmit() {

@@ -13,8 +13,8 @@ import "vuetify/dist/vuetify.min.css";
 
 Vue.use(Vuetify, {
   theme: {
-    primary: "#752939",
-    secondary: "#2d3436",
+    primary: "#1e90ff",
+    secondary: "#4b6584",
     accent: "#8c9eff",
     error: "#b71c1c"
   }
