@@ -12,7 +12,8 @@ export default new Vuex.Store({
     statusType: "",
     user: null,
     usersTable: null,
-    coursesTable: null
+    coursesTable: null,
+    courses: []
   },
   mutations: {
     authUser(state, userData) {
@@ -33,6 +34,7 @@ export default new Vuex.Store({
       state.email = registerUser.email;
       state.password = registerUser.password;
       state.admin = registerUser.admin;
+      state.courses = registerUser.courses;
     },
     createCourse(state, courseData) {
       state.title = courseData.title;
@@ -67,13 +69,15 @@ export default new Vuex.Store({
           username: registerData.username,
           email: registerData.email,
           password: registerData.password,
-          admin: registerData.admin
+          admin: registerData.admin,
+          courses: registerData.courses,
         });
         commit("registerUser", {
           username: data.username,
           email: data.email,
           password: data.password,
-          admin: data.admin
+          admin: data.admin,
+          courses: data.courses,
         });
       } catch (error) {
         console.log(error);

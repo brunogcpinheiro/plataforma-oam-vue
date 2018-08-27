@@ -38,8 +38,8 @@
                 <v-autocomplete
                   :items="courses"
                   label="Cursos *"
+                  v-model="select"
                   multiple
-                  chips
                 >
                   <template
                     slot="selection"
@@ -58,21 +58,21 @@
                     </v-chip>
                   </template>
                   <template
-                slot="item"
-                slot-scope="data"
-              >
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                </template>
-                <template v-else>
-                  <v-list-tile-avatar>
-                    <img :src="data.item.url">
-                  </v-list-tile-avatar>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
-                  </v-list-tile-content>
-                </template>
-              </template>
+                    slot="item"
+                    slot-scope="data"
+                  >
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img :src="data.item.url">
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
                 </v-autocomplete>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
@@ -100,6 +100,7 @@ import AdminHeader from '../components/AdminHeader.vue';
             email: '',
             password: '',
             courses: this.$store.getters.coursesTable,
+            select: null
         };
     },
     methods: {
@@ -109,7 +110,10 @@ import AdminHeader from '../components/AdminHeader.vue';
           email: this.email,
           password: this.password,
           admin: this.admin,
+          courses: [this.select[0].id]
         };
+        
+        console.log(registerData);
 
         if (this.username && this.email && this.password) {
           this.$store.dispatch('register', registerData);
