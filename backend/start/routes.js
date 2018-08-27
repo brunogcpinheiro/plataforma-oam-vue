@@ -43,3 +43,7 @@ Route.post(
   "/dashboard/admin/courses/create",
   "CourseController.createCourse"
 ).middleware("auth");
+Route.delete(
+  "/dashboard/admin/courses/:id",
+  "CourseController.destroy"
+).middleware("auth");

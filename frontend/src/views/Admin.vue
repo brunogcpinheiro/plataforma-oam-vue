@@ -70,7 +70,7 @@
                           <td>{{ props.item.description }}</td>
                           <td>
                             <v-btn color="secondary" small>Editar</v-btn>
-                            <v-btn color="error" small @click="deleteUserItem(props.item.id)">Excluir</v-btn>
+                            <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -149,6 +149,33 @@ export default {
             );
             this.users.splice(index, 1);
             this.$store.dispatch('removeUser', item.id);
+          } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+            this.$swal(
+              'Cancelado',
+              '',
+              'error'
+            );
+          }
+        });
+      },
+      deleteCourseItem (item) {
+        const index = this.courses.indexOf(item);
+        this.$swal({
+          title: 'Você tem certeza que deseja deletar este curso?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, delete!'
+        }).then((result) => {
+          if (result.value) {
+            this.$swal(
+              'Deletado!',
+              '',
+              'success'
+            );
+            this.courses.splice(index, 1);
+            this.$store.dispatch('removeCourse', item.id);
           } else if (result.dismiss === this.$swal.DismissReason.cancel) {
             this.$swal(
               'Cancelado',

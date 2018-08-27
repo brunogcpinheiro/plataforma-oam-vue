@@ -8,8 +8,8 @@ class CourseUserSchema extends Schema {
       table.integer('user_id').unsigned().index('user_id');
       table.integer('course_id').unsigned().index('course_id');
       
-      table.foreign('user_id').references('users.id').onDelete('cascade');
-      table.foreign('course_id').references('courses.id').onDelete('cascade');
+      table.foreign('user_id').references('users.id');
+      table.foreign('course_id').references('courses.id');
     });
   }
 

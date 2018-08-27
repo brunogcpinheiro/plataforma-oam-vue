@@ -147,6 +147,13 @@ export default new Vuex.Store({
         console.log(err);
       }
     },
+    async removeCourse({ commit }, courseId) {
+      try {
+        await api.delete(`/dashboard/admin/courses/${courseId}`);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     clearAlert({ commit }) {
       commit("clearAlert");
     },
