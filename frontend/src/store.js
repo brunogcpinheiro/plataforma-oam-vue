@@ -42,6 +42,12 @@ export default new Vuex.Store({
       state.author = courseData.author;
       state.description = courseData.description;
     },
+    updateCourse(state, courseData) {
+      state.title = courseData.title;
+      state.url = courseData.url;
+      state.author = courseData.author;
+      state.description = courseData.description;
+    },
     fetchUsersMutation(state, usersData) {
       state.usersTable = usersData;
     },
@@ -92,6 +98,24 @@ export default new Vuex.Store({
           description: courseData.description
         });
         commit("createCourse", {
+          title: data.title,
+          url: data.url,
+          author: data.author,
+          description: data.description
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateCourse({ commit }, courseData) {
+      try {
+        const { data } = await api.put(`/dashboard/admin/courses/${courseData.id}`, {
+          title: courseData.title,
+          url: courseData.url,
+          author: courseData.author,
+          description: courseData.description
+        });
+        commit("updateCourse", {
           title: data.title,
           url: data.url,
           author: data.author,
@@ -185,6 +209,9 @@ export default new Vuex.Store({
     },
     coursesTable: state => {
       return state.coursesTable;
-    }
+    },
+    courses: state => {
+      return state.courses;
+    },
   }
 });

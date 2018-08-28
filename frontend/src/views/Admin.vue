@@ -69,7 +69,7 @@
                           <td>{{ props.item.author }}</td>
                           <td>{{ props.item.description }}</td>
                           <td>
-                            <v-btn color="secondary" small>Editar</v-btn>
+                            <v-btn color="secondary" small @click="updateCourse(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
@@ -131,6 +131,10 @@ export default {
       this.$store.dispatch('fetchCoursesTable');
     },
     methods: {
+      fetchTables() {
+        this.$store.dispatch('fetchUsersTable');
+        this.$store.dispatch('fetchCoursesTable');
+      },
       deleteUserItem (item) {
         const index = this.users.indexOf(item);
         this.$swal({
@@ -185,6 +189,9 @@ export default {
           }
         });
       },
+      updateCourse(item) {
+        this.$router.replace(`/dashboard/admin/courses/${item.id}`);
+      }
     }
 };
 </script>

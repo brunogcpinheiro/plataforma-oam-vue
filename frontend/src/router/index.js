@@ -7,6 +7,7 @@ import Detail from "@/views/Detail";
 import Admin from "@/views/Admin";
 import CreateUsers from "@/views/CreateUsers";
 import CreateCourses from "@/views/CreateCourses";
+import EditCourse from "@/views/EditCourse";
 
 import store from "../store";
 
@@ -75,6 +76,19 @@ const router = new Router({
       path: "/dashboard/admin/courses/create",
       name: "CreateCourses",
       component: CreateCourses,
+      meta: { requiresAuth: true },
+      beforeRouteEnter(to, from, next) {
+        if (store.state.token && store.getters.user.user.admin) {
+          next();
+        } else {
+          next("/dashboard/courses");
+        }
+      }
+    },
+    {
+      path: "/dashboard/admin/courses/:id",
+      name: "EditCourse",
+      component: EditCourse,
       meta: { requiresAuth: true },
       beforeRouteEnter(to, from, next) {
         if (store.state.token && store.getters.user.user.admin) {

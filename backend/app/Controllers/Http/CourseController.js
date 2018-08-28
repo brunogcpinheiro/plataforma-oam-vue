@@ -38,7 +38,13 @@ class CourseController {
    * Update course details.
    * PUT or PATCH courses/:id
    */
-  async update({ params, request, response }) {}
+  async update({ params, request }) {
+    const data = request.all();
+    const course = await Course.find(params.id);
+    course.merge(data);
+    await course.save();
+    return course;
+  }
 
   /**
    * Delete a course with id.
