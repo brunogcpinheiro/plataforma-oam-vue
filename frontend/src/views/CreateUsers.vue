@@ -35,45 +35,15 @@
                   hide-details
                 ></v-checkbox>
                 <br />
-                <v-autocomplete
+                <v-select
+                  v-model="selected"
+                  item-text="title"
+                  item-value="id"
                   :items="courses"
+                  chips
                   label="Cursos *"
-                  v-model="select"
                   multiple
-                >
-                  <template
-                    slot="selection"
-                    slot-scope="data"
-                  >
-                    <v-chip
-                      :selected="data.selected"
-                      close
-                      class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.url">
-                      </v-avatar>
-                      {{ data.item.title }}
-                    </v-chip>
-                  </template>
-                  <template
-                    slot="item"
-                    slot-scope="data"
-                  >
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img :src="data.item.url">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
+                ></v-select>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
               <br>
@@ -100,7 +70,7 @@ import AdminHeader from '../components/AdminHeader.vue';
             email: '',
             password: '',
             courses: this.$store.getters.coursesTable,
-            select: null
+            selected: [],
         };
     },
     methods: {
@@ -110,10 +80,8 @@ import AdminHeader from '../components/AdminHeader.vue';
           email: this.email,
           password: this.password,
           admin: this.admin,
-          courses: [this.select[0].id]
+          courses: this.selected
         };
-        
-        console.log(registerData);
 
         if (this.username && this.email && this.password) {
           this.$store.dispatch('register', registerData);
