@@ -11,6 +11,10 @@ Route.post("/dashboard/admin/users/create", "SessionController.register");
 Route.get("/dashboard/admin/users", "SessionController.index").middleware(
   "auth"
 );
+Route.put(
+  "/dashboard/admin/users/:id",
+  "SessionController.update"
+).middleware("auth");
 Route.delete(
   "/dashboard/admin/users/:id",
   "SessionController.destroy"

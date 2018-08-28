@@ -6,32 +6,45 @@
           <v-btn color="secondary" to="/dashboard/admin"><v-icon>arrow_back</v-icon> Voltar</v-btn>
       </v-layout>
       <v-card class="create-card">
-        <h1>Editar Curso</h1>
+        <h1>Editar Usuário</h1>
           <v-layout justify-center>
             <v-flex>
               <v-form class="form">
                 <v-text-field
-                  label="Nome *"
-                  v-model="title"
+                  label="Usuário *"
+                  hint="Nome completo"
+                  v-model="username"
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="URL *"
-                  hint="URL da imagem"
-                  v-model="url"
+                  label="Email *"
+                  hint="E-mail de compra"
+                  v-model="email"
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Autor *"
-                  v-model="author"
+                  label="Senha *"
+                  type="password"
+                  v-model="password"
                   required
                 ></v-text-field>
-                <v-text-field
-                  label="Decrição *"
-                  v-model="description"
-                  required
-                ></v-text-field>
-                <v-btn color="secondary" @click="onSubmit">Atualizar</v-btn>
+                <v-checkbox
+                  v-model="admin"
+                  label="Administrador"
+                  color="secondary"
+                  hide-details
+                ></v-checkbox>
+                <br />
+                <v-select
+                  v-model="selected"
+                  item-text="title"
+                  item-value="id"
+                  :items="courses"
+                  chips
+                  label="Cursos *"
+                  multiple
+                ></v-select>
+                <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
               <br>
               <small>* - Campos obrigatórios</small>
@@ -46,30 +59,33 @@
 import AdminHeader from '../components/AdminHeader.vue';
 
   export default {
-    name: 'EditCourse',
+    name: 'EditUser',
     components: {
       AdminHeader
     },
     data() {
         return {
-            title: '',
-            url: '',
-            author: '',
-            description: ''
+            admin: false,
+            username: '',
+            password: '',
+            email: '',
+            courses: this.$store.getters.coursesTable,
+            selected: [],
         };
     },
     methods: {
       onSubmit() {
-        const courseData = {
-          title: this.title,
-          url: this.url,
-          author: this.author,
-          description: this.description,
+        const registerData = {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          admin: this.admin,
+          courses: this.selected,
           id: this.$route.params.id
         };
-        
-        if (this.title && this.url && this.author && this.description) {
-          this.$store.dispatch('updateCourse', courseData);
+
+        if (this.username && this.email) {
+          this.$store.dispatch('updateUser', registerData);
           const toast = this.$swal.mixin({
             toast: true,
             position: 'top-end',
@@ -79,10 +95,10 @@ import AdminHeader from '../components/AdminHeader.vue';
           });
           toast({
             type: 'success',
-            title: 'Curso atualizado com sucesso!'
+            title: 'Usuário atualizado com sucesso!'
           });
           this.$router.replace('/dashboard/courses');
-          this.$store.dispatch('fetchCoursesTable');
+          this.$store.dispatch('fetchUsersTable');
         } else {
           const toast = this.$swal.mixin({
             toast: true,

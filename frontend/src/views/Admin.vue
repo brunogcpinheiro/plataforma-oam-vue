@@ -33,7 +33,7 @@
                             <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
                           </td>
                           <td>
-                            <v-btn color="secondary" small>Editar</v-btn>
+                            <v-btn color="secondary" small @click="updateUser(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteUserItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
@@ -191,6 +191,9 @@ export default {
       },
       updateCourse(item) {
         this.$router.replace(`/dashboard/admin/courses/${item.id}`);
+      },
+      updateUser(item) {
+        this.$router.replace(`/dashboard/admin/users/${item.id}`);
       }
     }
 };

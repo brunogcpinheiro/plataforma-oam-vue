@@ -36,6 +36,13 @@ export default new Vuex.Store({
       state.admin = registerUser.admin;
       state.courses = registerUser.courses;
     },
+    updateUser(state, registerUser) {
+      state.username = registerUser.username;
+      state.email = registerUser.email;
+      password: registerUser.password;
+      state.admin = registerUser.admin;
+      state.courses = registerUser.courses;
+    },
     createCourse(state, courseData) {
       state.title = courseData.title;
       state.url = courseData.url;
@@ -62,10 +69,12 @@ export default new Vuex.Store({
     },
     logoutUser(state) {
       state.token = null;
+      state.status = "";
+      state.statusType = "";
       state.user = null;
       state.usersTable = null;
       state.coursesTable = null;
-      state.status = "";
+      state.courses = [];
     }
   },
   actions: {
@@ -82,6 +91,25 @@ export default new Vuex.Store({
           username: data.username,
           email: data.email,
           password: data.password,
+          admin: data.admin,
+          courses: data.courses,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateUser({ commit }, registerData) {
+      try {
+        const { data } = await api.put(`/dashboard/admin/users/${registerData.id}`, {
+          username: registerData.username,
+          email: registerData.email,
+          password: registerData.password,
+          admin: registerData.admin,
+          courses: registerData.courses,
+        });
+        commit("updateUser", {
+          username: data.username,
+          email: data.email,
           admin: data.admin,
           courses: data.courses,
         });

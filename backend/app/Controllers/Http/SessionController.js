@@ -31,6 +31,19 @@ class SessionController {
     return token;
   }
   
+  async update({ params, request }) {
+    const user = await User.findOrFail(params.id);
+    const { courses, ...data } = request.only(['username', 'email', 'admin', 'courses']);
+    user.merge(data);
+    await user.save();
+    if(courses && courses.length > 0) {
+      await user.courses().detach();
+      await user.courses().attach(courses);
+      user.courses = await user.courses().fetch();
+    }
+    return user;
+  }
+  
   async currentUser({ request, auth }) {
     const user = await User.query().where('id', auth.current.user.id).with('courses').firstOrFail();
     return user;
