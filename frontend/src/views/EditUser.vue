@@ -23,7 +23,7 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Senha *"
+                  label="Senha"
                   type="password"
                   v-model="password"
                   required
@@ -44,7 +44,7 @@
                   label="Cursos *"
                   multiple
                 ></v-select>
-                <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
+                <v-btn color="secondary" @click="onSubmit">Atualizar</v-btn>
               </v-form>
               <br>
               <small>* - Campos obrigatórios</small>
@@ -65,10 +65,10 @@ import AdminHeader from '../components/AdminHeader.vue';
     },
     data() {
         return {
-            admin: false,
-            username: '',
-            password: '',
-            email: '',
+            admin: this.$store.state.editedUserData.admin,
+            username: this.$store.state.editedUserData.username,
+            password: this.$store.state.editedUserData.password,
+            email: this.$store.state.editedUserData.email,
             courses: this.$store.getters.coursesTable,
             selected: [],
         };

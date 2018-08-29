@@ -13,6 +13,8 @@ export default new Vuex.Store({
     user: null,
     usersTable: null,
     coursesTable: null,
+    editedUserData: null,
+    editedCourseData: null,
     courses: []
   },
   mutations: {
@@ -39,9 +41,15 @@ export default new Vuex.Store({
     updateUser(state, registerUser) {
       state.username = registerUser.username;
       state.email = registerUser.email;
-      password: registerUser.password;
+      state.password = registerUser.password;
       state.admin = registerUser.admin;
       state.courses = registerUser.courses;
+    },
+    editedUserInfo(state, editedUserData) {
+      state.editedUserData = editedUserData;
+    },
+    editedCourseInfo(state, editedCourseData) {
+      state.editedCourseData = editedCourseData;
     },
     createCourse(state, courseData) {
       state.title = courseData.title;
@@ -196,6 +204,12 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    async editedUserInfo({ commit }, editedUserData) {
+      commit('editedUserInfo', editedUserData);
+    },
+    async editedCourseInfo({ commit }, editedCourseData) {
+      commit('editedCourseInfo', editedCourseData);
+    },
     async removeUser({ commit }, userId) {
       try {
         await api.delete(`/dashboard/admin/users/${userId}`);
@@ -241,5 +255,11 @@ export default new Vuex.Store({
     courses: state => {
       return state.courses;
     },
+    editedUserData: state => {
+      return state.editedUserData;
+    },
+    editedCourseData: state => {
+      return state.editedCourseData;
+    }
   }
 });

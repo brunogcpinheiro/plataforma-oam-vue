@@ -44,6 +44,7 @@
 
 <script>
 import AdminHeader from '../components/AdminHeader.vue';
+import { mapGetters } from 'vuex';
 
   export default {
     name: 'EditCourse',
@@ -52,11 +53,14 @@ import AdminHeader from '../components/AdminHeader.vue';
     },
     data() {
         return {
-            title: '',
-            url: '',
-            author: '',
-            description: ''
+            title: this.$store.state.editedCourseData.title,
+            url: this.$store.state.editedCourseData.url,
+            author: this.$store.state.editedCourseData.author,
+            description: this.$store.state.editedCourseData.description
         };
+    },
+    computed: {
+      ...mapGetters(['editedCourseData'])
     },
     methods: {
       onSubmit() {

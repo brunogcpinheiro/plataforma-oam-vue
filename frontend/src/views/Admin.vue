@@ -33,7 +33,7 @@
                             <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
                           </td>
                           <td>
-                            <v-btn color="secondary" small @click="updateUser(props.item)">Editar</v-btn>
+                            <v-btn color="secondary" small @click="editUser(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteUserItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
@@ -62,6 +62,7 @@
                             :headers="coursesHeaders"
                             :items="courses"
                             :search="courseSearch"
+                            class="elevation-1"
                         >
                         <template slot="items" slot-scope="props">
                           <td>{{ props.item.id }}</td>
@@ -69,7 +70,7 @@
                           <td>{{ props.item.author }}</td>
                           <td>{{ props.item.description }}</td>
                           <td>
-                            <v-btn color="secondary" small @click="updateCourse(props.item)">Editar</v-btn>
+                            <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
                           </td>
                         </template>
@@ -117,7 +118,14 @@ export default {
         username: '',
         email: '',
         password: '',
-        valid: true
+        valid: true,
+        editedUser: {
+          username: '',
+          email: '',
+          password: '',
+          admin: null,
+          courses: []
+        }
       };
     },
     computed: {
@@ -189,12 +197,27 @@ export default {
           }
         });
       },
-      updateCourse(item) {
+      editCourse(item) {
+        const editedCourseData = {
+          title: item.title,
+          url: item.url,
+          author: item.author,
+          description: item.description,
+        };
+        this.$store.dispatch('editedCourseInfo', editedCourseData);
         this.$router.replace(`/dashboard/admin/courses/${item.id}`);
       },
-      updateUser(item) {
+      editUser(item) {
+        const editedUserData = {
+          username: item.username,
+          email: item.email,
+          password: item.password,
+          admin: item.admin,
+          courses: item.courses,
+        };
+        this.$store.dispatch('editedUserInfo', editedUserData);
         this.$router.replace(`/dashboard/admin/users/${item.id}`);
-      }
+      },
     }
 };
 </script>
