@@ -15,6 +15,7 @@ export default new Vuex.Store({
     coursesTable: null,
     editedUserData: null,
     editedCourseData: null,
+    accessedCourseData: null,
     courses: []
   },
   mutations: {
@@ -41,7 +42,6 @@ export default new Vuex.Store({
     updateUser(state, registerUser) {
       state.username = registerUser.username;
       state.email = registerUser.email;
-      state.password = registerUser.password;
       state.admin = registerUser.admin;
       state.courses = registerUser.courses;
     },
@@ -83,6 +83,9 @@ export default new Vuex.Store({
       state.usersTable = null;
       state.coursesTable = null;
       state.courses = [];
+    },
+    accessedCourse(state, accessedCourseData) {
+      state.accessedCoursedata = accessedCourseData;
     }
   },
   actions: {
@@ -111,7 +114,6 @@ export default new Vuex.Store({
         const { data } = await api.put(`/dashboard/admin/users/${registerData.id}`, {
           username: registerData.username,
           email: registerData.email,
-          password: registerData.password,
           admin: registerData.admin,
           courses: registerData.courses,
         });
@@ -204,10 +206,10 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async editedUserInfo({ commit }, editedUserData) {
+    editedUserInfo({ commit }, editedUserData) {
       commit('editedUserInfo', editedUserData);
     },
-    async editedCourseInfo({ commit }, editedCourseData) {
+    editedCourseInfo({ commit }, editedCourseData) {
       commit('editedCourseInfo', editedCourseData);
     },
     async removeUser({ commit }, userId) {
@@ -231,6 +233,9 @@ export default new Vuex.Store({
       commit("logoutUser");
       delete api.defaults.headers.common["Authorization"];
       router.replace("/login");
+    },
+    accessedCourse({ commit }, accessedCourseData) {
+      commit("accessedCourse", accessedCourseData);
     }
   },
   getters: {

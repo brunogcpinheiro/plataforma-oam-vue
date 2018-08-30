@@ -18,7 +18,7 @@
               </div>
             </v-card-title>
             <v-card-actions class="access">
-              <v-btn to="/dashboard/courses/detail" color="primary" block>Acessar curso</v-btn>
+              <v-btn @click="accessCourse(item)" color="primary" block>Acessar curso</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -50,6 +50,10 @@ export default {
       this.$store.dispatch("logoutUser");
       /*global localStorage*/ localStorage.removeItem('token');
       this.$router.replace('/login');
+    },
+    accessCourse(item) {
+      this.$store.dispatch('accessedCourse', item);
+      this.$router.replace(`/dashboard/courses/${item.id}`);
     }
   },
 };

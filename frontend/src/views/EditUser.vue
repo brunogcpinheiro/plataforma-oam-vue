@@ -22,12 +22,6 @@
                   v-model="email"
                   required
                 ></v-text-field>
-                <v-text-field
-                  label="Senha"
-                  type="password"
-                  v-model="password"
-                  required
-                ></v-text-field>
                 <v-checkbox
                   v-model="admin"
                   label="Administrador"
@@ -44,6 +38,10 @@
                   label="Cursos *"
                   multiple
                 ></v-select>
+                <div v-for="selected in selectedCourses">
+                  <p><strong>Curso adquirido.:</strong> {{selected.title}}</p>
+                </div>
+                <p><strong>* OBS.: CURSOS JÁ ADQUIRIDOS DEVEM SER SELECIONADOS NOVAMENTE.</strong></p>
                 <v-btn color="secondary" @click="onSubmit">Atualizar</v-btn>
               </v-form>
               <br>
@@ -67,9 +65,9 @@ import AdminHeader from '../components/AdminHeader.vue';
         return {
             admin: this.$store.state.editedUserData.admin,
             username: this.$store.state.editedUserData.username,
-            password: this.$store.state.editedUserData.password,
             email: this.$store.state.editedUserData.email,
             courses: this.$store.getters.coursesTable,
+            selectedCourses: this.$store.getters.editedUserData.courses,
             selected: [],
         };
     },
@@ -78,7 +76,6 @@ import AdminHeader from '../components/AdminHeader.vue';
         const registerData = {
           username: this.username,
           email: this.email,
-          password: this.password,
           admin: this.admin,
           courses: this.selected,
           id: this.$route.params.id
@@ -122,5 +119,15 @@ import AdminHeader from '../components/AdminHeader.vue';
 .create-card {
   margin-top: 30px;
   padding: 30px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 20px 0;
+}
+
+p {
+  color: #4B6584;
 }
 </style>

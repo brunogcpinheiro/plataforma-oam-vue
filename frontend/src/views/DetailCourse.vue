@@ -59,7 +59,7 @@
 import Header from '../components/Header.vue';
 
   export default {
-    name: 'Detail',
+    name: 'DetailCourse',
     components: {
       Header
     }

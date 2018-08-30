@@ -3,12 +3,12 @@ import Router from "vue-router";
 import Login from "@/views/Login";
 import Dashboard from "@/views/Dashboard";
 import Profile from "@/views/Profile";
-import Detail from "@/views/Detail";
 import Admin from "@/views/Admin";
 import CreateUsers from "@/views/CreateUsers";
 import CreateCourses from "@/views/CreateCourses";
 import EditCourse from "@/views/EditCourse";
 import EditUser from "@/views/EditUser";
+import DetailCourse from "@/views/DetailCourse";
 
 import store from "../store";
 
@@ -40,12 +40,6 @@ const router = new Router({
           next("/login");
         }
       }
-    },
-    {
-      path: "/dashboard/courses/detail",
-      name: "Detail",
-      component: Detail,
-      meta: { requiresAuth: true }
     },
     {
       path: "/dashboard/admin",
@@ -103,6 +97,19 @@ const router = new Router({
       path: "/dashboard/admin/courses/:id",
       name: "EditCourse",
       component: EditCourse,
+      meta: { requiresAuth: true },
+      beforeRouteEnter(to, from, next) {
+        if (store.state.token && store.getters.user.user.admin) {
+          next();
+        } else {
+          next("/dashboard/courses");
+        }
+      }
+    },
+    {
+      path: "/dashboard/courses/:id",
+      name: "DetailCourse",
+      component: DetailCourse,
       meta: { requiresAuth: true },
       beforeRouteEnter(to, from, next) {
         if (store.state.token && store.getters.user.user.admin) {
