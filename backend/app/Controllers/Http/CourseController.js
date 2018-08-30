@@ -23,18 +23,6 @@ class CourseController {
   }
 
   /**
-   * Display a single course.
-   * GET courses/:id
-   */
-  async show({ params, request, response, view }) {}
-
-  /**
-   * Render a form to update an existing course.
-   * GET courses/:id/edit
-   */
-  async edit({ params, request, response, view }) {}
-
-  /**
    * Update course details.
    * PUT or PATCH courses/:id
    */
