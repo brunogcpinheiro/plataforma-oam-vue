@@ -1,12 +1,12 @@
 <template>
   <div>
     <Header />
-    <v-container>
+    <v-container ma-0 class="content">
       <h1>Curso: {{accessedCourseData.title}}</h1>
-      <v-layout>
-        <v-flex ma-0 wrap>
+      <v-layout row wrap>
+        <v-flex xs12 sm12 md12>
           <div class="main">
-            <v-flex xs-12 sm12 md-12 lg-12 xl-12>
+            <v-flex xs9 md9 lg9>
               <div ma-0 pa-0 class="video-card">
                 <v-card class="video">
                   <v-card-title primary-title>
@@ -23,19 +23,18 @@
                 </v-card>
               </div>
             </v-flex>
-            <v-flex sm3>
+            <v-flex xs3 md3 lg3 mb3>
               <v-card class="videos_list">
                 <v-expansion-panel>
                   <v-expansion-panel-content
-                    v-for="(item,i) in 5"
+                    popout
+                    v-for="(item, i) in headers"
                     :key="i"
                   >
-                    <div slot="header">Módulo</div>
+                    <div slot="header"><strong>{{item.module}}</strong></div>
                     <v-card>
-                      <ul class="lectures">
-                        <li><a>Introdução</a></li>
-                        <li><a>Principais conceitos</a></li>
-                        <li><a>Ferramentas de ortodontia</a></li>
+                      <ul class="lectures" v-for="(lecture, i) in item.lectures" :key="i">
+                        <a><li>{{lecture}}</li></a>
                       </ul>
                     </v-card>
                   </v-expansion-panel-content>
@@ -58,6 +57,20 @@ import { mapGetters } from 'vuex';
     components: {
       Header
     },
+    data() {
+      return {
+        headers: [
+          {
+            module: '0. Introdução e principais conceitos',
+            lectures: ['Introdução', 'Principais conceitos', 'Definições na Ortodontia']
+          },
+          {
+            module: '1. Conceituando as primeiras ferramentas',
+            lectures: ['Introdução às ferramentas', 'Principais problemas', 'Definições de como utilizá-las']
+          },
+        ]
+      };
+    },
     computed: {
       ...mapGetters([
         'accessedCourseData'
@@ -69,11 +82,15 @@ import { mapGetters } from 'vuex';
 <style scoped>
 
   h1 {
-    margin-top: -30px;
+    margin: -30px 0 10px 10px;
   }
   
   h3 {
     text-transform: uppercase;
+  }
+  
+  .content {
+    max-width: 100%;
   }
   
   .main {
