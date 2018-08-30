@@ -85,7 +85,7 @@ export default new Vuex.Store({
       state.courses = [];
     },
     accessedCourse(state, accessedCourseData) {
-      state.accessedCoursedata = accessedCourseData;
+      state.accessedCourseData = accessedCourseData;
     }
   },
   actions: {
@@ -265,6 +265,9 @@ export default new Vuex.Store({
     },
     editedCourseData: state => {
       return state.editedCourseData;
-    }
+    },
+    accessedCourseData: state => {
+      return state.accessedCourseData;
+    },
   }
 });

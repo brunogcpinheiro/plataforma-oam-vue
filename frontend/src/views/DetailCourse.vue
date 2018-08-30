@@ -2,7 +2,7 @@
   <div>
     <Header />
     <v-container>
-      <h1>Ortodontia Avançada IV</h1>
+      <h1>Curso: {{accessedCourseData.title}}</h1>
       <v-layout>
         <v-flex ma-0 wrap>
           <div class="main">
@@ -25,27 +25,21 @@
             </v-flex>
             <v-flex sm3>
               <v-card class="videos_list">
-                <v-card-title>
-                  <ol>
-                    <li>
-                      <v-btn flat class="video-desc">
-                        <h5>Introdução</h5>
-                      </v-btn>
-                    </li>
-                    
-                    <li>
-                      <v-btn flat class="video-desc">
-                        <h5>Introdução</h5>
-                      </v-btn>
-                    </li>
-                    
-                    <li>
-                      <v-btn flat class="video-desc">
-                        <h5>Introdução</h5>
-                      </v-btn>
-                    </li>
-                  </ol>
-                </v-card-title>
+                <v-expansion-panel>
+                  <v-expansion-panel-content
+                    v-for="(item,i) in 5"
+                    :key="i"
+                  >
+                    <div slot="header">Módulo</div>
+                    <v-card>
+                      <ul class="lectures">
+                        <li><a>Introdução</a></li>
+                        <li><a>Principais conceitos</a></li>
+                        <li><a>Ferramentas de ortodontia</a></li>
+                      </ul>
+                    </v-card>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
               </v-card>
             </v-flex>
           </div>
@@ -57,13 +51,19 @@
 
 <script>
 import Header from '../components/Header.vue';
+import { mapGetters } from 'vuex';
 
   export default {
     name: 'DetailCourse',
     components: {
       Header
+    },
+    computed: {
+      ...mapGetters([
+        'accessedCourseData'
+      ])
     }
-  }
+  };
 </script>
 
 <style scoped>
@@ -94,13 +94,6 @@ import Header from '../components/Header.vue';
     margin-top: 10px;
   }
   
-  ol {
-    margin-right: 10px;
-    background: #752939;
-    border-radius: 3px;
-    color: #fff;
-  }
-  
   li {
     padding: 10px;
   }
@@ -109,5 +102,9 @@ import Header from '../components/Header.vue';
     display: flex;
     padding: 10px;
     color: #fff;
+  }
+  
+  .lectures li:hover {
+    background: #f5f5f5;
   }
 </style>
