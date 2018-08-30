@@ -6,7 +6,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm12 md12>
           <div class="main">
-            <v-flex xs9 md9 lg9>
+            <v-flex xs7 md8 lg9>
               <div ma-0 pa-0 class="video-card">
                 <v-card class="video">
                   <v-card-title primary-title>
@@ -23,7 +23,7 @@
                 </v-card>
               </div>
             </v-flex>
-            <v-flex xs3 md3 lg3 mb3>
+            <v-flex xs5 md4 lg3 mb3>
               <v-card class="videos_list">
                 <v-expansion-panel>
                   <v-expansion-panel-content
