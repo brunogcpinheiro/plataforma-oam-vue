@@ -42,3 +42,14 @@ Route.delete(
   "/dashboard/admin/courses/:id",
   "CourseController.destroy"
 ).middleware("auth");
+
+/**
+ * Module Routes
+ */
+ Route.get("/dashboard/admin/courses/:id/modules", "ModuleController.index").middleware(
+  "auth"
+);
+ Route.post(
+  "/dashboard/admin/courses/:id/content/create",
+  "ModuleController.store"
+).middleware("auth");
