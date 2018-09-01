@@ -29,7 +29,10 @@
                           <td>{{ props.item.username }}</td>
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
-                          <td class="courses-list" v-for="course in props.item.courses" :key="course.id">
+                          <td v-if="props.item.courses.length == 0">
+                            <small>Sem cursos atribuídos ao usuário.</small>
+                          </td>
+                          <td class="courses-list" v-for="course in props.item.courses" :key="course.id" v-else>
                             <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
                           </td>
                           <td>
@@ -69,9 +72,18 @@
                           <td>{{ props.item.title }}</td>
                           <td>{{ props.item.author }}</td>
                           <td>{{ props.item.description }}</td>
+                          <td v-if="props.item.modules.length == 0">
+                            <small>Sem módulos atribuídos ao curso.</small>
+                          </td>
+                          <td v-else v-for="module in props.item.modules" :key="module.id">
+                            <ul>
+                              <li>{{ module.moduleTitle }}</li>
+                            </ul>
+                          </td>
                           <td>
                             <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
+                            <v-btn color="warning" small @click="addContent(props.item)">Adicionar conteúdo</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -97,21 +109,20 @@ export default {
           { text: 'id', value: 'id' },
           { text: 'Usuário', value: 'username' },
           { text: 'E-mail', value: 'email' },
-          { text: 'Admin', sortable: false, value: 'admin' },
-          { text: 'Cursos ( ID - Nome )', sortable: false, value: 'courses' },
-          { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
+          { text: 'Admin', value: 'admin', sortable: false },
+          { text: 'Cursos ( ID - Nome )', sortable: false, value: 'cursos' },
+          { text: 'Ações', sortable: false, align: 'right' },
         ],
         users: this.$store.getters.usersTable,
         coursesHeaders: [
-          { text: 'id', value: 'id' },
-          { text: 'Nome', sortable: false, value: 'name' },
-          { text: 'Autor', sortable: false, value: 'author' },
-          { text: 'Descrição', sortable: false, value: 'description' },
-          { text: 'Ações', sortable: false, value: 'ações', align: 'right' },
+          { text: 'id', value: 'id', },
+          { text: 'Nome', value: 'title', sortable: false },
+          { text: 'Autor', value: 'author', sortable: false },
+          { text: 'Descrição', value: 'description', sortable: false },
+          { text: 'Módulos', value: 'modules', sortable: false },
+          { text: 'Ações', sortable: false, align: 'right' },
         ],
         courses: this.$store.getters.coursesTable,
-        userDialog: false,
-        courseDialog: false,
         userSearch: '',
         courseSearch: '',
         admin: false,
@@ -131,18 +142,16 @@ export default {
     computed: {
       ...mapGetters([
         'usersTable',
-        'coursesTable'
+        'coursesTable',
+        'modulesTable'
       ])
     },
-    created() {
+    mounted() {
       this.$store.dispatch('fetchUsersTable');
       this.$store.dispatch('fetchCoursesTable');
+      this.$store.dispatch('fetchModules');
     },
     methods: {
-      fetchTables() {
-        this.$store.dispatch('fetchUsersTable');
-        this.$store.dispatch('fetchCoursesTable');
-      },
       deleteUserItem (item) {
         const index = this.users.indexOf(item);
         this.$swal({
@@ -218,6 +227,10 @@ export default {
         this.$store.dispatch('editedUserInfo', editedUserData);
         this.$router.replace(`/dashboard/admin/users/${item.id}`);
       },
+      addContent(item) {
+        this.$store.dispatch('addContent', item);
+        this.$router.replace(`/dashboard/admin/courses/${item.id}/content/create`);
+      }
     }
 };
 </script>
@@ -270,5 +283,10 @@ h1 {
 h2 {
   margin-left: 10px;
   color: #2d3436;
+}
+
+small {
+  font-style: italic;
+  color: #ff7675;
 }
 </style>

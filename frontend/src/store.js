@@ -16,6 +16,9 @@ export default new Vuex.Store({
     editedUserData: null,
     editedCourseData: null,
     accessedCourseData: null,
+    createContent: null,
+    addContent: null,
+    modulesTable: null,
     courses: []
   },
   mutations: {
@@ -69,6 +72,9 @@ export default new Vuex.Store({
     fetchCoursesMutation(state, coursesData) {
       state.coursesTable = coursesData;
     },
+    fetchModules(state, modulesData) {
+      state.modulesTable = modulesData;
+    },
     currentUser(state, currentUserData) {
       state.user = currentUserData;
     },
@@ -86,6 +92,12 @@ export default new Vuex.Store({
     },
     accessedCourse(state, accessedCourseData) {
       state.accessedCourseData = accessedCourseData;
+    },
+    createContent(state, createContent) {
+      state.createContent = createContent;
+    },
+    addContent(state, addContent) {
+      state.addContent = addContent;
     }
   },
   actions: {
@@ -96,14 +108,14 @@ export default new Vuex.Store({
           email: registerData.email,
           password: registerData.password,
           admin: registerData.admin,
-          courses: registerData.courses,
+          courses: registerData.courses
         });
         commit("registerUser", {
           username: data.username,
           email: data.email,
           password: data.password,
           admin: data.admin,
-          courses: data.courses,
+          courses: data.courses
         });
       } catch (error) {
         console.log(error);
@@ -111,17 +123,20 @@ export default new Vuex.Store({
     },
     async updateUser({ commit }, registerData) {
       try {
-        const { data } = await api.put(`/dashboard/admin/users/${registerData.id}`, {
-          username: registerData.username,
-          email: registerData.email,
-          admin: registerData.admin,
-          courses: registerData.courses,
-        });
+        const { data } = await api.put(
+          `/dashboard/admin/users/${registerData.id}`,
+          {
+            username: registerData.username,
+            email: registerData.email,
+            admin: registerData.admin,
+            courses: registerData.courses
+          }
+        );
         commit("updateUser", {
           username: data.username,
           email: data.email,
           admin: data.admin,
-          courses: data.courses,
+          courses: data.courses
         });
       } catch (error) {
         console.log(error);
@@ -147,17 +162,35 @@ export default new Vuex.Store({
     },
     async updateCourse({ commit }, courseData) {
       try {
-        const { data } = await api.put(`/dashboard/admin/courses/${courseData.id}`, {
-          title: courseData.title,
-          url: courseData.url,
-          author: courseData.author,
-          description: courseData.description
-        });
+        const { data } = await api.put(
+          `/dashboard/admin/courses/${courseData.id}`,
+          {
+            title: courseData.title,
+            url: courseData.url,
+            author: courseData.author,
+            description: courseData.description
+          }
+        );
         commit("updateCourse", {
           title: data.title,
           url: data.url,
           author: data.author,
           description: data.description
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createContent({ commit }, courseContent) {
+      try {
+        const { data } = await api.post(
+          `/dashboard/admin/courses/${this.state.addContent.id}/content/create`,
+          {
+            moduleTitle: courseContent.moduleTitle
+          }
+        );
+        commit("createContent", {
+          moduleTitle: data.moduleTitle
         });
       } catch (error) {
         console.log(error);
@@ -196,6 +229,14 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    async fetchModules({ commit }) {
+      try {
+        const { data } = await api.get("/dashboard/admin/courses/modules");
+        commit("fetchModules", data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async fetchUser({ commit }) {
       try {
         const { data } = await api.get("/current");
@@ -207,10 +248,10 @@ export default new Vuex.Store({
       }
     },
     editedUserInfo({ commit }, editedUserData) {
-      commit('editedUserInfo', editedUserData);
+      commit("editedUserInfo", editedUserData);
     },
     editedCourseInfo({ commit }, editedCourseData) {
-      commit('editedCourseInfo', editedCourseData);
+      commit("editedCourseInfo", editedCourseData);
     },
     async removeUser({ commit }, userId) {
       try {
@@ -236,6 +277,9 @@ export default new Vuex.Store({
     },
     accessedCourse({ commit }, accessedCourseData) {
       commit("accessedCourse", accessedCourseData);
+    },
+    addContent({ commit }, addContent) {
+      commit("addContent", addContent);
     }
   },
   getters: {
@@ -269,5 +313,8 @@ export default new Vuex.Store({
     accessedCourseData: state => {
       return state.accessedCourseData;
     },
+    modulesTable: state => {
+      return state.modulesTable;
+    }
   }
 });

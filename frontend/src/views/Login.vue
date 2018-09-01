@@ -1,7 +1,7 @@
 <template>
     <div class="login-form">
         <v-form @submit.prevent="onSubmit">
-            <img src="../assets/logo.png" alt="Logo" />
+            <img src="../assets/OrtoConectaFinal.png" alt="Logo" />
             <v-text-field
               label="E-mail"
               id="email"
