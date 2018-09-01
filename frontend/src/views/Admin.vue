@@ -75,10 +75,8 @@
                           <td v-if="props.item.modules.length == 0">
                             <small>Sem módulos atribuídos ao curso.</small>
                           </td>
-                          <td v-else v-for="module in props.item.modules" :key="module.id">
-                            <ul>
-                              <li>{{ module.moduleTitle }}</li>
-                            </ul>
+                          <td class="courses-list" v-else v-for="module in props.item.modules" :key="module.id">
+                            <p>{{ module.moduleTitle }}</p>
                           </td>
                           <td>
                             <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>

@@ -41,9 +41,10 @@ export default {
       'user'
     ])
   },
-  created() {
+  mounted() {
     this.$store.dispatch('fetchUsersTable');
     this.$store.dispatch('fetchCoursesTable');
+    this.$store.dispatch('fetchModules');
   },
   methods: {
     onLogout() {
