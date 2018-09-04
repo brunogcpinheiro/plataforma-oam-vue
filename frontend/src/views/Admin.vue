@@ -76,7 +76,9 @@
                             <small>Sem módulos atribuídos ao curso.</small>
                           </td>
                           <td class="courses-list" v-else v-for="module in props.item.modules" :key="module.id">
-                            <p>{{ module.moduleTitle }}</p>
+                            <ul class="module-list">
+                              <li>{{ module.moduleTitle }}</li>
+                            </ul>
                           </td>
                           <td>
                             <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>
@@ -147,7 +149,6 @@ export default {
     mounted() {
       this.$store.dispatch('fetchUsersTable');
       this.$store.dispatch('fetchCoursesTable');
-      this.$store.dispatch('fetchModules');
     },
     methods: {
       deleteUserItem (item) {

@@ -35,6 +35,12 @@ class CourseController {
 
     return course;
   }
+  
+  async show({ params }) {
+    const course = await Course.findOrFail(params.id);
+    await course.load("modules");
+    return course;
+  }
 
   /**
    * Update course details.
@@ -53,7 +59,7 @@ class CourseController {
    * DELETE courses/:id
    */
   async destroy({ params }) {
-    const course = await Course.find(params.id);
+    const course = await Course.findOrFail(params.id);
     await course.delete();
     return course;
   }

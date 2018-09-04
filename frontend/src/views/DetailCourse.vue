@@ -15,10 +15,10 @@
                     </div>
                   </v-card-title>
                   
-                  <v-card-media
+                  <v-img
                     src="https://i.ytimg.com/vi/0tLIs66LVIM/maxresdefault.jpg"
                     height="500px"
-                  ></v-card-media>
+                  ></v-img>
           
                 </v-card>
               </div>
@@ -31,7 +31,7 @@
                     v-for="(item, i) in headers"
                     :key="i"
                   >
-                    <div slot="header"><strong>{{item.module}}</strong></div>
+                    <div slot="header"><strong>{{item.moduleTitle}}</strong></div>
                     <v-card>
                       <ul class="lectures" v-for="(lecture, i) in item.lectures" :key="i">
                         <a><li>{{lecture}}</li></a>
@@ -59,16 +59,7 @@ import { mapGetters } from 'vuex';
     },
     data() {
       return {
-        headers: [
-          {
-            module: '0. Introdução e principais conceitos',
-            lectures: ['Introdução', 'Principais conceitos', 'Definições na Ortodontia']
-          },
-          {
-            module: '1. Conceituando as primeiras ferramentas',
-            lectures: ['Introdução às ferramentas', 'Principais problemas', 'Definições de como utilizá-las']
-          },
-        ]
+        headers: this.$store.getters.accessedCourseData.modules
       };
     },
     computed: {

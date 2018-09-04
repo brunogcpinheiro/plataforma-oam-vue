@@ -29,6 +29,7 @@ Route.put(
 Route.get("/dashboard/admin/courses", "CourseController.index").middleware(
   "auth"
 );
+Route.get("/dashboard/courses/:id", "CourseController.show").middleware("auth");
 Route.post(
   "/dashboard/admin/courses/create",
   "CourseController.createCourse"

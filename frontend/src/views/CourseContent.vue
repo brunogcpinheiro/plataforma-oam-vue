@@ -11,9 +11,11 @@
             <v-flex>
               <v-form class="form">
                 <v-text-field
-                  label="Módulo *"
-                  v-model="moduleTitle">
-                </v-text-field>
+                  label="Módulos *"
+                  v-model="moduleTitle"
+                ></v-text-field>
+                <p><strong>OBS.: </strong>Separar os módulos com ";" (Ponto-vírgula).</p>
+                <p><strong>Ex.: </strong>Módulo 1; Módulo 2; Módulo 3</p>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
               <br>
@@ -29,7 +31,7 @@
 import AdminHeader from '../components/AdminHeader.vue';
 
   export default {
-    name: 'CreateContent',
+    name: 'CourseContent',
     components: {
       AdminHeader
     },
@@ -40,12 +42,15 @@ import AdminHeader from '../components/AdminHeader.vue';
     },
     methods: {
       onSubmit() {
-        const contentData = {
+        const courseContentData = {
+          course_id: this.$store.getters.editedCourseData.id,
           moduleTitle: this.moduleTitle,
         };
+        
+        console.log(courseContentData);
 
         if (this.moduleTitle) {
-          this.$store.dispatch('createContent', contentData);
+          this.$store.dispatch('createModule', courseContentData);
           const toast = this.$swal.mixin({
             toast: true,
             position: 'top-end',

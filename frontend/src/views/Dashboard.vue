@@ -1,15 +1,16 @@
-<template v-if="">
+<template>
   <div>
     <Header />
     <v-container>
       <h1>Meus Cursos</h1>
       <v-layout>
         <v-flex class="content" v-for="u in user" :key="u.id">
-          <v-card class="course" v-for="item in u.courses" :key="item.id">
-            <v-card-media
+          <v-card 
+            class="course" v-for="item in u.courses" :key="item.id">
+            <v-img
               :src="item.url"
               height="150px"
-            ></v-card-media>
+            ></v-img>
             <v-card-title primary-title>
               <div>
                 <h3>{{item.title}}</h3>
@@ -22,7 +23,7 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-        </v-layout>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -44,7 +45,6 @@ export default {
   mounted() {
     this.$store.dispatch('fetchUsersTable');
     this.$store.dispatch('fetchCoursesTable');
-    this.$store.dispatch('fetchModules');
   },
   methods: {
     onLogout() {
@@ -54,7 +54,6 @@ export default {
     },
     accessCourse(item) {
       this.$store.dispatch('accessedCourse', item);
-      this.$router.replace(`/dashboard/courses/${item.id}`);
     }
   },
 };

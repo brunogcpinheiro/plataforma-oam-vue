@@ -275,8 +275,14 @@ export default new Vuex.Store({
       delete api.defaults.headers.common["Authorization"];
       router.replace("/login");
     },
-    accessedCourse({ commit }, accessedCourseData) {
-      commit("accessedCourse", accessedCourseData);
+    async accessedCourse({ commit }, accessedCourse) {
+      try {
+        const { data } = await api.get(`/dashboard/courses/${accessedCourse.id}`);
+        commit("accessedCourse", data);
+        router.replace(`/dashboard/courses/${data.id}`);
+      } catch(err) {
+        console.log(err);
+      }
     },
     addContent({ commit }, addContent) {
       commit("addContent", addContent);
