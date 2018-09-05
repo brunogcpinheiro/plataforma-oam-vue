@@ -11,7 +11,7 @@
                 <v-card class="video">
                   <v-card-title primary-title>
                     <div>
-                      <h3>1. INTRODUÇÃO</h3>
+                      <h3>{{selectedLecture}}</h3>
                     </div>
                   </v-card-title>
                   
@@ -34,7 +34,7 @@
                     <div slot="header"><strong>{{item.moduleTitle}}</strong></div>
                     <v-card>
                       <ul class="lectures" v-for="(lecture, i) in item.lectures" :key="i">
-                        <a><li>{{lecture}}</li></a>
+                        <a @click="selected(lecture)"><li>{{lecture.lectureTitle}}</li></a>
                       </ul>
                     </v-card>
                   </v-expansion-panel-content>
@@ -59,13 +59,19 @@ import { mapGetters } from 'vuex';
     },
     data() {
       return {
-        headers: this.$store.getters.accessedCourseData.modules
+        headers: this.$store.getters.accessedCourseData.modules,
+        selectedLecture: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureTitle,
       };
     },
     computed: {
       ...mapGetters([
         'accessedCourseData'
       ])
+    },
+    methods: {
+      selected(lecture) {
+        this.selectedLecture = lecture.lectureTitle;
+      }
     }
   };
 </script>

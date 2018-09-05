@@ -8,7 +8,7 @@ class SessionController {
   async index() {
     const users = await User.query()
     .with('courses', builder => {
-      builder.with('modules');
+      builder.with('modules.lectures');
     }).fetch();
     
     return users ;

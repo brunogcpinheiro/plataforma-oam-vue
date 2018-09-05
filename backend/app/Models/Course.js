@@ -10,10 +10,6 @@ class Course extends Model {
   modules() {
     return this.hasMany("App/Models/Module");
   }
-  
-  lectures() {
-    return this.hasMany("App/Models/Lecture");
-  }
 }
 
 module.exports = Course;

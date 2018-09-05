@@ -50,7 +50,7 @@ Route.get(
   "ModuleController.index"
 ).middleware("auth");
 Route.post(
-  "/dashboard/admin/courses/:course_id/content/create",
+  "/dashboard/admin/courses/:course_id/module/create",
   "ModuleController.store"
 ).middleware("auth");
 
@@ -58,10 +58,10 @@ Route.post(
  * Lecture Routes
  */
  Route.get(
-  "/dashboard/admin/courses/modules",
-  "ModuleController.index"
+  "/dashboard/admin/courses/lectures",
+  "LectureController.index"
 ).middleware("auth");
 Route.post(
-  "/dashboard/admin/courses/:course_id/content/create",
-  "ModuleController.store"
+  "/dashboard/admin/courses/:module_id/lecture/create",
+  "LectureController.store"
 ).middleware("auth");

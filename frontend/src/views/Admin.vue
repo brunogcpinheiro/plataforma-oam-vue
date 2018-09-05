@@ -30,7 +30,7 @@
                           <td>{{ props.item.email }}</td>
                           <td>{{ props.item.admin }}</td>
                           <td v-if="props.item.courses.length == 0">
-                            <small>Sem cursos atribuídos ao usuário.</small>
+                            <small>Sem cursos atribuídos. Adicione ao lado em "Editar" <v-icon color="secondary" :style="{verticalAlign: 'middle'}">arrow_right_alt</v-icon></small>
                           </td>
                           <td class="courses-list" v-for="course in props.item.courses" :key="course.id" v-else>
                             <p><strong>ID.:</strong> {{course.id}} <v-icon>minimize</v-icon> <strong>Nome.:</strong> {{course.title}}</p>
@@ -73,17 +73,21 @@
                           <td>{{ props.item.author }}</td>
                           <td>{{ props.item.description }}</td>
                           <td v-if="props.item.modules.length == 0">
-                            <small>Sem módulos atribuídos ao curso.</small>
+                            <small>Sem módulos atribuídos. Adicione ao lado <v-icon color="secondary" :style="{verticalAlign: 'middle'}">arrow_right_alt</v-icon></small>
                           </td>
                           <td class="courses-list" v-else v-for="module in props.item.modules" :key="module.id">
                             <ul class="module-list">
                               <li><strong>{{ module.moduleTitle }}</strong></li>
+                              <div class="addLecture" v-for="lecture in module.lectures">
+                                <li>{{lecture.lectureTitle}}</li>
+                              </div>
+                              <a @click="lecturePage(module)">Adicionar aula</a>
                             </ul>
                           </td>
                           <td>
                             <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
-                            <v-btn color="warning" small @click="addContent(props.item)">Adicionar conteúdo</v-btn>
+                            <v-btn color="warning" small @click="addContent(props.item)"><v-icon>add</v-icon> módulos</v-btn>
                           </td>
                         </template>
                       </v-data-table>
@@ -229,7 +233,11 @@ export default {
       },
       addContent(item) {
         this.$store.dispatch('addContent', item);
-        this.$router.replace(`/dashboard/admin/courses/${item.id}/content/create`);
+        this.$router.replace(`/dashboard/admin/courses/${item.id}/module/create`);
+      },
+      lecturePage(module) {
+        this.$store.dispatch('addLectureContent', module);
+        this.$router.replace(`/dashboard/admin/courses/${module.id}/lecture/create`);
       }
     }
 };
@@ -251,8 +259,7 @@ h1 {
 }
 
 .users-table,
-.courses-table,
-.content-table {
+.courses-table {
   margin: 25px 0 35px 0;
   border: 1px solid #e5e5e5;
   background: #d1d8e0;
@@ -270,7 +277,6 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 24px;
 }
 
 .courses-list > p {
@@ -287,4 +293,5 @@ small {
   font-style: italic;
   color: #ff7675;
 }
+
 </style>

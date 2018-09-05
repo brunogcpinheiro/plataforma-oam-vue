@@ -6,13 +6,17 @@
           <v-btn color="secondary" to="/dashboard/admin"><v-icon>arrow_back</v-icon> Voltar</v-btn>
       </v-layout>
       <v-card class="create-card">
-        <h1>Criar Conteúdo</h1>
+        <h1>Criar Aula</h1>
           <v-layout justify-center>
             <v-flex>
               <v-form class="form">
                 <v-text-field
-                  label="Módulo *"
-                  v-model="moduleTitle">
+                  label="Título da aula *"
+                  v-model="lectureTitle">
+                </v-text-field>
+                <v-text-field
+                  label="URL da aula *"
+                  v-model="lectureURL">
                 </v-text-field>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
@@ -29,23 +33,25 @@
 import AdminHeader from '../components/AdminHeader.vue';
 
   export default {
-    name: 'CreateContent',
+    name: 'CreateLecture',
     components: {
       AdminHeader
     },
     data() {
         return {
-            moduleTitle: '',
+            lectureTitle: '',
+            lectureURL: '',
         };
     },
     methods: {
       onSubmit() {
-        const contentData = {
-          moduleTitle: this.moduleTitle,
+        const lectureData = {
+          lectureTitle: this.lectureTitle,
+          lectureURL: this.lectureURL,
         };
 
-        if (this.moduleTitle) {
-          this.$store.dispatch('createContent', contentData);
+        if (this.lectureTitle && this.lectureURL) {
+          this.$store.dispatch('createLecture', lectureData);
           const toast = this.$swal.mixin({
             toast: true,
             position: 'top-end',
@@ -55,7 +61,7 @@ import AdminHeader from '../components/AdminHeader.vue';
           });
           toast({
             type: 'success',
-            title: 'Módulos adicionados com sucesso!'
+            title: 'Aula adicionada com sucesso!'
           });
           this.$router.replace('/dashboard/courses');
           this.$store.dispatch('fetchCoursesTable');

@@ -7,12 +7,6 @@ class LecturesSchema extends Schema {
     this.create('lectures', (table) => {
       table.increments();
       table
-        .integer("course_id")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("courses");
-      table
         .integer("module_id")
         .unsigned()
         .notNullable()

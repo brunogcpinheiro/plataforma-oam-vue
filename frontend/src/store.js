@@ -16,8 +16,10 @@ export default new Vuex.Store({
     editedUserData: null,
     editedCourseData: null,
     accessedCourseData: null,
-    createContent: null,
+    createModule: null,
+    createLecture: null,
     addContent: null,
+    addLectureContent: null,
     modulesTable: null,
     courses: []
   },
@@ -93,11 +95,17 @@ export default new Vuex.Store({
     accessedCourse(state, accessedCourseData) {
       state.accessedCourseData = accessedCourseData;
     },
-    createContent(state, createContent) {
-      state.createContent = createContent;
+    createModule(state, createModule) {
+      state.createModule = createModule;
+    },
+    createLecture(state, createLecture) {
+      state.createLecture = createLecture;
     },
     addContent(state, addContent) {
       state.addContent = addContent;
+    },
+    addLectureContent(state, addLectureContent) {
+      state.addLectureContent = addLectureContent;
     }
   },
   actions: {
@@ -181,16 +189,33 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async createContent({ commit }, courseContent) {
+    async createModule({ commit }, moduleContent) {
       try {
         const { data } = await api.post(
-          `/dashboard/admin/courses/${this.state.addContent.id}/content/create`,
+          `/dashboard/admin/courses/${this.state.addContent.id}/module/create`,
           {
-            moduleTitle: courseContent.moduleTitle
+            moduleTitle: moduleContent.moduleTitle
           }
         );
-        commit("createContent", {
+        commit("createModule", {
           moduleTitle: data.moduleTitle
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createLecture({ commit }, lectureContent) {
+      try {
+        const { data } = await api.post(
+          `/dashboard/admin/courses/${this.state.addLectureContent.id}/lecture/create`,
+          {
+            lectureTitle: lectureContent.lectureTitle,
+            lectureURL: lectureContent.lectureURL,
+          }
+        );
+        commit("createLecture", {
+          lectureTitle: data.lectureTitle,
+          lectureURL: data.lectureURL
         });
       } catch (error) {
         console.log(error);
@@ -286,6 +311,9 @@ export default new Vuex.Store({
     },
     addContent({ commit }, addContent) {
       commit("addContent", addContent);
+    },
+    addLectureContent({ commit }, addLectureContent) {
+      commit("addLectureContent", addLectureContent);
     }
   },
   getters: {

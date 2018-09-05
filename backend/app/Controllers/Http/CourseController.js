@@ -38,7 +38,7 @@ class CourseController {
   
   async show({ params }) {
     const course = await Course.findOrFail(params.id);
-    await course.load("modules");
+    await course.load("modules.lectures");
     return course;
   }
 
