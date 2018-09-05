@@ -53,3 +53,15 @@ Route.post(
   "/dashboard/admin/courses/:course_id/content/create",
   "ModuleController.store"
 ).middleware("auth");
+
+/**
+ * Lecture Routes
+ */
+ Route.get(
+  "/dashboard/admin/courses/modules",
+  "ModuleController.index"
+).middleware("auth");
+Route.post(
+  "/dashboard/admin/courses/:course_id/content/create",
+  "ModuleController.store"
+).middleware("auth");

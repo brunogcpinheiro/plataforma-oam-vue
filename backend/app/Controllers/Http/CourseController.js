@@ -7,9 +7,9 @@ class CourseController {
    * Show a list of all courses.
    * GET courses
    */
-  async index({ auth }) {
+  async index() {
     const courses = await Course.query()
-      .with("modules")
+      .with("modules.lectures")
       .fetch();
     return courses;
   }

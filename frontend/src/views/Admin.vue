@@ -3,7 +3,7 @@
         <AdminHeader />
         <v-container>
             <h1>Painel Administrativo</h1>
-            <div class="users-table">
+            <div class="users-table elevation-1">
               <div class="table-actions">
                 <h2>Tabela de Usuários</h2>
                 <v-btn color="secondary" to="/dashboard/admin/users/create"><v-icon>add</v-icon> Adicionar Usuário</v-btn>
@@ -45,7 +45,7 @@
                 </v-layout>
             </div>
 
-            <div class="courses-table">
+            <div class="courses-table elevation-1">
               <div class="table-actions">
                 <h2>Tabela de Cursos</h2>
                 <v-btn color="secondary" to="/dashboard/admin/courses/create"><v-icon>add</v-icon> Adicionar Curso</v-btn>
@@ -77,7 +77,7 @@
                           </td>
                           <td class="courses-list" v-else v-for="module in props.item.modules" :key="module.id">
                             <ul class="module-list">
-                              <li>{{ module.moduleTitle }}</li>
+                              <li><strong>{{ module.moduleTitle }}</strong></li>
                             </ul>
                           </td>
                           <td>
@@ -90,6 +90,7 @@
                     </v-flex>
                 </v-layout>
             </div>
+          
         </v-container>
     </div>
 </template>
@@ -119,7 +120,7 @@ export default {
           { text: 'Nome', value: 'title', sortable: false },
           { text: 'Autor', value: 'author', sortable: false },
           { text: 'Descrição', value: 'description', sortable: false },
-          { text: 'Módulos', value: 'modules', sortable: false },
+          { text: 'Conteúdo (Módulos + Aulas)', value: 'content', sortable: false },
           { text: 'Ações', sortable: false, align: 'right' },
         ],
         courses: this.$store.getters.coursesTable,
@@ -250,13 +251,11 @@ h1 {
 }
 
 .users-table,
-.courses-table {
+.courses-table,
+.content-table {
   margin: 25px 0 35px 0;
   border: 1px solid #e5e5e5;
   background: #d1d8e0;
-  -webkit-box-shadow: 0px 2px 5px 0px rgba(196, 196, 196, 1);
-  -moz-box-shadow: 0px 2px 5px 0px rgba(196, 196, 196, 1);
-  box-shadow: 0px 2px 5px 0px rgba(196, 196, 196, 1);
 }
 
 .table-actions,

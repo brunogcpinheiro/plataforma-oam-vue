@@ -10,8 +10,10 @@ class ModuleController {
    * Show a list of all modules.
    * GET modules
    */
-  async index({ params }) {
-    const modules = await Module.all();
+  async index() {
+    const modules = await Module.query()
+      .with("lectures")
+      .fetch();
     return modules;
   }
 
