@@ -15,10 +15,8 @@
                     </div>
                   </v-card-title>
                   
-                  <v-img
-                    src="https://i.ytimg.com/vi/0tLIs66LVIM/maxresdefault.jpg"
-                    height="500px"
-                  ></v-img>
+                  <vimeo-player ref="player" :video-id="embed" @ready="onReady" :player-height="height">
+                  </vimeo-player>
           
                 </v-card>
               </div>
@@ -61,6 +59,10 @@ import { mapGetters } from 'vuex';
       return {
         headers: this.$store.getters.accessedCourseData.modules,
         selectedLecture: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureTitle,
+        embed: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureURL,
+        height: 600,
+        options: {},
+        playerReady: false,
       };
     },
     computed: {
@@ -70,7 +72,17 @@ import { mapGetters } from 'vuex';
     },
     methods: {
       selected(lecture) {
+        console.log(this.embed);
         this.selectedLecture = lecture.lectureTitle;
+      },
+      onReady() {
+          this.playerReady = true;
+      },
+      play () {
+          this.$refs.player.play();
+      },
+      stop () {
+          this.$refs.player.stop();
       }
     }
   };
