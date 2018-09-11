@@ -9,7 +9,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import Vuelidate from "vuelidate";
 import api from "./services/api";
 import { sync } from "vuex-router-sync";
-import vueVimeoPlayer from 'vue-vimeo-player'
+import vueVimeoPlayer from 'vue-vimeo-player';
 
 import "vuetify/dist/vuetify.min.css";
 

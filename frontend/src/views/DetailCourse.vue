@@ -15,8 +15,10 @@
                     </div>
                   </v-card-title>
                   
-                  <vimeo-player ref="player" :video-id="embed" @ready="onReady" :player-height="height">
-                  </vimeo-player>
+                  <div class="video">
+                    <vimeo-player ref="player" :video-id="selectedLectureURL" @ready="onReady" :player-height="height">
+                    </vimeo-player>
+                  </div>
           
                 </v-card>
               </div>
@@ -59,8 +61,8 @@ import { mapGetters } from 'vuex';
       return {
         headers: this.$store.getters.accessedCourseData.modules,
         selectedLecture: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureTitle,
-        embed: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureURL,
-        height: 600,
+        selectedLectureURL: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureURL,
+        height: 400,
         options: {},
         playerReady: false,
       };
@@ -72,8 +74,8 @@ import { mapGetters } from 'vuex';
     },
     methods: {
       selected(lecture) {
-        console.log(this.embed);
         this.selectedLecture = lecture.lectureTitle;
+        this.selectedLectureURL = lecture.lectureURL;
       },
       onReady() {
           this.playerReady = true;

@@ -75,16 +75,18 @@
                           <td v-if="props.item.modules.length == 0">
                             <small>Sem módulos atribuídos. Adicione ao lado <v-icon color="secondary" :style="{verticalAlign: 'middle'}">arrow_right_alt</v-icon></small>
                           </td>
-                          <td class="courses-list" v-else v-for="module in props.item.modules" :key="module.id">
-                            <ul class="module-list">
-                              <li><strong>{{ module.moduleTitle }}</strong></li>
-                              <div class="addLecture" v-for="lecture in module.lectures">
-                                <li>{{lecture.lectureTitle}}</li>
-                              </div>
-                              <a @click="lecturePage(module)">Adicionar aula</a>
-                            </ul>
-                          </td>
-                          <td>
+                          <div class="modules-lectures" v-else>
+                            <td class="courses-list" v-for="module in props.item.modules" :key="module.id">
+                              <ul class="module-list">
+                                <li><strong>{{ module.moduleTitle }}</strong></li>
+                                <div class="addLecture" v-for="lecture in module.lectures">
+                                  <li>{{lecture.lectureTitle}}</li>
+                                </div>
+                                <a @click="lecturePage(module)">Adicionar aula</a>
+                              </ul>
+                            </td>
+                          </div>
+                          <td class="actions">
                             <v-btn color="secondary" small @click="editCourse(props.item)">Editar</v-btn>
                             <v-btn color="error" small @click="deleteCourseItem(props.item)">Excluir</v-btn>
                             <v-btn color="warning" small @click="addContent(props.item)"><v-icon>add</v-icon> módulos</v-btn>
@@ -277,6 +279,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  line-height: 100%;
 }
 
 .courses-list > p {
@@ -292,6 +295,14 @@ h2 {
 small {
   font-style: italic;
   color: #ff7675;
+}
+
+.modules-lectures {
+  padding: 24px;
+}
+
+.actions {
+  padding: 0;
 }
 
 </style>

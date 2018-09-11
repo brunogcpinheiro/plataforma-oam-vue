@@ -7,7 +7,7 @@
         <v-flex>
           <v-form class="form" @submit.prevent="changePassword">
             <v-text-field
-              label="Name"
+              label="Nome"
               disabled
               :value="user.user.username"
             ></v-text-field>
