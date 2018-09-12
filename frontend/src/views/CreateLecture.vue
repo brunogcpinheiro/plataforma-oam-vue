@@ -115,5 +115,7 @@ h3 {
 .lectures-list {
   margin-top: 25px;
   border: 1px solid #4B6584;
+  background: #4B6584;
+  color: #fff;
 }
 </style>
