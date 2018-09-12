@@ -15,13 +15,26 @@
                   v-model="lectureTitle">
                 </v-text-field>
                 <v-text-field
-                  label="URL da aula *"
+                  label="ID da aula *"
+                  hint="ID do Vimeo"
                   v-model="lectureURL">
                 </v-text-field>
                 <v-btn color="secondary" @click="onSubmit">Salvar</v-btn>
               </v-form>
               <br>
               <small>* - Campos obrigatórios</small>
+              
+              <div v-if="addLectureContent.lectures.length == 0">
+                <h3>Sem aulas cadastradas neste módulo.</h3>
+              </div>
+              <div v-else>
+                <h3>Aulas cadastradas neste módulo <v-icon>arrow_downward</v-icon></h3>
+                <div class="lectures-list" v-for="lecture in addLectureContent.lectures">
+                  <ul>
+                    <li><strong>Aula.: </strong>{{lecture.lectureTitle}} - <strong>ID.: </strong><small>{{lecture.lectureURL}}</small></li>
+                  </ul>
+                </div>
+              </div>
             </v-flex>
           </v-layout>
       </v-card>
@@ -31,6 +44,7 @@
 
 <script>
 import AdminHeader from '../components/AdminHeader.vue';
+import { mapGetters } from 'vuex';
 
   export default {
     name: 'CreateLecture',
@@ -42,6 +56,9 @@ import AdminHeader from '../components/AdminHeader.vue';
             lectureTitle: '',
             lectureURL: '',
         };
+    },
+    computed: {
+      ...mapGetters(['addLectureContent'])
     },
     methods: {
       onSubmit() {
@@ -85,8 +102,18 @@ import AdminHeader from '../components/AdminHeader.vue';
 </script>
 
 <style scoped>
+
+h3 {
+  margin-top: 20px;
+}
+
 .create-card {
   margin-top: 30px;
   padding: 30px;
+}
+
+.lectures-list {
+  margin-top: 25px;
+  border: 1px solid #4B6584;
 }
 </style>

@@ -78,11 +78,10 @@
                           <div class="modules-lectures" v-else>
                             <td class="courses-list" v-for="module in props.item.modules" :key="module.id">
                               <ul class="module-list">
-                                <li><strong>{{ module.moduleTitle }}</strong></li>
-                                <div class="addLecture" v-for="lecture in module.lectures">
-                                  <li>{{lecture.lectureTitle}}</li>
-                                </div>
-                                <a @click="lecturePage(module)">Adicionar aula</a>
+                                <li>
+                                  <strong>{{ module.moduleTitle }}</strong>
+                                  <a @click="lecturePage(module)">Adicionar/visualizar aulas</a>
+                                </li>
                               </ul>
                             </td>
                           </div>
@@ -126,7 +125,7 @@ export default {
           { text: 'Nome', value: 'title', sortable: false },
           { text: 'Autor', value: 'author', sortable: false },
           { text: 'Descrição', value: 'description', sortable: false },
-          { text: 'Conteúdo (Módulos + Aulas)', value: 'content', sortable: false },
+          { text: 'Conteúdo (Módulos)', value: 'content', sortable: false },
           { text: 'Ações', sortable: false, align: 'right' },
         ],
         courses: this.$store.getters.coursesTable,
@@ -297,12 +296,12 @@ small {
   color: #ff7675;
 }
 
-.modules-lectures {
-  padding: 24px;
-}
+/*.lectures-list {*/
+/*  padding: 25px;*/
+/*}*/
 
-.actions {
-  padding: 0;
-}
+/*.actions {*/
+/*  padding: 0;*/
+/*}*/
 
 </style>

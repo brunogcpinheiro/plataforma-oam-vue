@@ -349,6 +349,9 @@ export default new Vuex.Store({
     },
     modulesTable: state => {
       return state.modulesTable;
-    }
+    },
+    addLectureContent: state => {
+      return state.addLectureContent;
+    },
   }
 });
