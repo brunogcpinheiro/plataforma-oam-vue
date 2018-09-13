@@ -296,12 +296,4 @@ small {
   color: #ff7675;
 }
 
-/*.lectures-list {*/
-/*  padding: 25px;*/
-/*}*/
-
-/*.actions {*/
-/*  padding: 0;*/
-/*}*/
-
 </style>

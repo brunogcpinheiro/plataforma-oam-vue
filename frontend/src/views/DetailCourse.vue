@@ -15,8 +15,8 @@
                     </div>
                   </v-card-title>
                   
-                  <div class="video">
-                    <vimeo-player ref="player" :video-id="selectedLectureURL" @ready="onReady" :player-height="height">
+                  <div class="embed-container">
+                    <vimeo-player ref="player" :video-id="selectedLectureURL" @ready="onReady">
                     </vimeo-player>
                   </div>
           
@@ -62,8 +62,9 @@ import { mapGetters } from 'vuex';
         headers: this.$store.getters.accessedCourseData.modules,
         selectedLecture: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureTitle,
         selectedLectureURL: this.$store.getters.accessedCourseData.modules[0].lectures[0].lectureURL,
-        height: 400,
-        options: {},
+        options: {
+          color: "#ff5566"
+        },
         playerReady: false,
       };
     },
@@ -116,6 +117,7 @@ import { mapGetters } from 'vuex';
     margin: 10px 10px 0;
     padding: 25px;
     width: 100%;
+    height: calc(100vh - 200px);
   }
   
   .videos_list {
@@ -134,5 +136,17 @@ import { mapGetters } from 'vuex';
   
   .lectures li:hover {
     background: #f5f5f5;
+  }
+  
+  .video-player {
+    background-size: cover;
+  }
+  
+  .embed-container { 
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; 
+  } 
+  
+  .embed-container iframe, .embed-container object, .embed-container embed { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
   }
 </style>
